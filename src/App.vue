@@ -14,19 +14,19 @@
         <li v-if="showModeratorBoard" class="nav-item">
           <router-link to="/mod" class="nav-link">Moderator Board</router-link>
         </li>
-        <li class="nav-item">
+        <li v-if="showUserBoard" class="nav-item">
           <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
         </li>
 
-        <li class="nav-item">
+        <li v-if="showUserBoard" class="nav-item">
           <router-link v-if="currentUser" to="/researchActivity" class="nav-link">ResearchActivity</router-link>
         </li>
 
-        <li class="nav-item">
+        <li v-if="showUserBoard" class="nav-item">
           <router-link v-if="currentUser" to="/teachingActivity" class="nav-link">TeachingActivity</router-link>
         </li>
 
-        <li class="nav-item">
+        <li v-if="showUserBoard" class="nav-item">
           <router-link v-if="currentUser" to="/institutionalActivity" class="nav-link">institutionalActivity</router-link>
         </li>
         
@@ -75,6 +75,13 @@ export default {
     showAdminBoard() {
       if (this.currentUser && this.currentUser.roles) {
         return this.currentUser.roles.includes('ROLE_ADMIN');
+      }
+
+      return false;
+    },
+    showUserBoard() {
+      if (this.currentUser && this.currentUser.roles) {
+        return this.currentUser.roles.includes('ROLE_USER');
       }
 
       return false;

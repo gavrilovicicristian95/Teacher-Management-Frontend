@@ -62,8 +62,13 @@ export const router = new Router({
     },
     {
       path:'/institutionalActivity',
-      name: 'institutionalActivity',
+      name: 'InstitutionalActivity',
       component: () => import('./views/InstitutionalActivity.vue')
+    },
+    {
+      path:'/addArticle',
+      name: 'addArticle',
+      component: () => import('./views/AddArticle.vue')
     }
   ]
 });

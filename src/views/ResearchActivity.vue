@@ -2,33 +2,67 @@
   <v-app> 
     <div>
       <h4>1. Articole ştiintifice publicate în extenso în reviste cotate Web of Science cu factor de impact</h4>
+      <v-col cols="2">
+        <v-btn filled class="primary info--text my-3" @click.once="addArticle()">
+          Adauga Articol
+        </v-btn>
+      </v-col>
       <v-data-table
         :headers="headersWebScience"
-        :items="articles"
+        :items="articlesWebScience"
         :items-per-page="5"
         class="elevation-1"
-      ></v-data-table>
+      >
+      <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="viewArticle(item.idArticol)"
+                  >mdi-file-eye</v-icon
+                >
+              </template>
+              <span>Vizualizeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="editArticle(item.idArticol)"
+                  >mdi-pencil</v-icon
+                >
+              </template>
+              <span>Editeaza</span>
+            </v-tooltip>
+          </template>
+      </v-data-table>
 
       <h4>2. Articole ştiintifice indexate Scopus</h4>
       <v-data-table
         :headers="headersScopus"
-        :items="articlesEmpty"
+        :items="articlesIndexScopus"
         :items-per-page="5"
         class="elevation-1"
       ></v-data-table>
 
       <h4>3. Articole ştiintifice publicate în extenso în reviste indexate BDI</h4>
       <v-data-table
-        :headers="headersScopus"
-        :items="articlesEmpty"
+        :headers="headersExtenso"
+        :items="articlesIndexBDI"
         :items-per-page="5"
         class="elevation-1"
       ></v-data-table>
 
       <h4>4. Articole ştiintifice publicate în extenso în reviste de specialitate neindexate</h4>
       <v-data-table
-        :headers="headersScopus"
-        :items="articlesEmpty"
+        :headers="headersExtenso"
+        :items="articlesNonIndex"
         :items-per-page="5"
         class="elevation-1"
       ></v-data-table>
@@ -36,7 +70,7 @@
       <h4>5. Articole ştiintifice publicate în extenso in volumele conferinţelor, în dicţionare şi enciclopedii de specialitate</h4>
       <v-data-table
         :headers="headersEnciclopedii"
-        :items="articlesEmpty"
+        :items="articlesExtenso"
         :items-per-page="5"
         class="elevation-1"
       ></v-data-table>
@@ -45,6 +79,8 @@
 </template>
 
 <script>
+  import ArticleService from '../services/article.service'
+
   export default {
     data () {
       return {
@@ -55,11 +91,11 @@
             sortable: false,
             value: 'anulPublicarii',
           },
-          { text: 'Titlu Arcticol', value: 'titluArticol' },
+          { text: 'Titlu Articol', value: 'titluArticol' },
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
-          { text: 'Titlu Revista, volum, nr', value: 'titluRevista' },
-          { text: 'SJR', value: 'SJR' },
+          { text: 'Titlu Revista, volum, nr', value: 'titluRevistaVolumNr' },
+          { text: 'SJR', value: 'sjr' },
           { text: 'Punctaj', value: 'punctaj' },
         ],
         headersExtenso:[
@@ -69,7 +105,7 @@
             sortable: false,
             value: 'anulPublicarii',
           },
-          { text: 'Titlu Arcticol', value: 'titluArticol' },
+          { text: 'Titlu Articol', value: 'titluArticol' },
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Titlu Revista, volum, nr', value: 'titluRevista' },
@@ -83,7 +119,7 @@
             sortable: false,
             value: 'anulPublicarii',
           },
-          { text: 'Titlu Arcticol', value: 'titluArticol' },
+          { text: 'Titlu Articol', value: 'titluArticol' },
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Denumire volum conferinta', value: 'titluRevista' },
@@ -98,7 +134,7 @@
             sortable: false,
             value: 'anulPublicarii',
           },
-          { text: 'Titlu Arcticol', value: 'titluArticol' },
+          { text: 'Titlu Articol', value: 'titluArticol' },
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Titlu Revista, volum, nr', value: 'titluRevista' },
@@ -111,107 +147,82 @@
             sortable: false,
             value: 'anulPublicarii',
           },
-          { text: 'Titlu Arcticol', value: 'titluArticol' },
+          { text: 'Titlu Articol', value: 'titluArticol' },
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
-          { text: 'Titlu Revista, volum, nr', value: 'titluRevista' },
-          { text: 'Factor de impact', value: 'factorImpact' },
+          { text: 'Titlu Revista, volum, nr', value: 'titluRevistaVolumNr' },
+          { text: 'Factor de impact', value: 'factoriImpact' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
-        articlesEmpty:[],
-        articles: [
-          {
-            anulPublicarii: 1995,
-            titluArticol: 'Articol Nr 1',
-            autori: 'Autor Nr 1',
-            nrAutori: 2,
-            titluRevista: "Titlu Nr 1",
-            factorImpact: 'Factor Impact nr 1',
-            punctaj: 28,
-          },
-          {
-            anulPublicarii: 2001,
-            titluArticol: 'Articol Nr 2',
-            autori: 'Autor Nr 2',
-            nrAutori: 1,
-            titluRevista: "Titlu Nr 2",
-            factorImpact: 'Factor Impact nr 2',
-            punctaj: 35,
-          },
-         {
-            anulPublicarii: 2003,
-            titluArticol: 'Articol Nr 3',
-            autori: 'Autor Nr 3',
-            nrAutori: 1,
-            titluRevista: "Titlu Nr 3",
-            factorImpact: 'Factor Impact nr 3',
-            punctaj: 42,
-          },
-          {
-            anulPublicarii: 1990,
-            titluArticol: 'Articol Nr 4',
-            autori: 'Autor Nr 4',
-            nrAutori: 2,
-            titluRevista: "Titlu Nr 4",
-            factorImpact: 'Factor Impact nr 4',
-            punctaj: 12,
-          },
-          {
-            anulPublicarii: 1995,
-            titluArticol: 'Articol Nr 5',
-            autori: 'Autor Nr 5',
-            nrAutori: 4,
-            titluRevista: "Titlu Nr 5",
-            factorImpact: 'Factor Impact nr 5',
-            punctaj: 80,
-          },
-          {
-            anulPublicarii: 2010,
-            titluArticol: 'Articol Nr 6',
-            autori: 'Autor Nr 6',
-            nrAutori: 2,
-            titluRevista: "Titlu Nr 6",
-            factorImpact: 'Factor Impact nr 6',
-            punctaj: 50,
-          },
-          {
-            anulPublicarii: 2007,
-            titluArticol: 'Articol Nr 7',
-            autori: 'Autor Nr 7',
-            nrAutori: 2,
-            titluRevista: "Titlu Nr 7",
-            factorImpact: 'Factor Impact nr 7',
-            punctaj: 17,
-          },
-          {
-            anulPublicarii: 2013,
-            titluArticol: 'Articol Nr 8',
-            autori: 'Autor Nr 8',
-            nrAutori: 1,
-            titluRevista: "Titlu Nr 8",
-            factorImpact: 'Factor Impact nr 8',
-            punctaj: 92,
-          },
-          {
-            anulPublicarii: 2016,
-            titluArticol: 'Articol Nr 9',
-            autori: 'Autor Nr 9',
-            nrAutori:3,
-            titluRevista: "Titlu Nr 9",
-            factorImpact: 'Factor Impact nr 9',
-            punctaj: 28,
-          },
-          {
-            anulPublicarii: 2010,
-            titluArticol: 'Articol Nr 10',
-            autori: 'Autor Nr 10',
-            nrAutori: 2,
-            titluRevista: "Titlu Nr 10",
-            factorImpact: 'Factor Impact nr 10',
-            punctaj: 58,
-          },
-        ],
+        articlesEmpty: [],
+        articlesWebScience: [],
+        articlesIndexScopus: [],
+        articlesIndexBDI: [],
+        articlesNonIndex: [],
+        articlesExtenso: []
       }
     },
+
+    methods:{
+      refreshArticles(){
+        ArticleService.getArticlesByTipArticol("webScience").then(res => {
+        this.articlesWebScience = res.data;
+        console.log('Inainte de articles');
+        console.log(this.articlesWebScience);
+         });
+
+        ArticleService.getArticlesByTipArticol("indexateScopus").then(res => {
+        this.articlesIndexScopus = res.data;
+        console.log('Inainte de articles');
+        console.log(this.articlesIndexScopus);
+         });
+
+        ArticleService.getArticlesByTipArticol("indexateBDI").then(res => {
+        this.articlesIndexBDI = res.data;
+        console.log('Inainte de articles');
+        console.log(this.articlesIndexBDI);
+         });
+        
+        ArticleService.getArticlesByTipArticol("neindexate").then(res => {
+        this.articlesNonIndex = res.data;
+        console.log('Inainte de articles');
+        console.log(this.articlesNonIndex);
+         });
+        
+        ArticleService.getArticlesByTipArticol("publicateExtenso").then(res => {
+        this.articlesExtenso = res.data;
+        console.log('Inainte de articles');
+        console.log(this.articlesExtenso);
+         });
+      },
+
+      viewArticle(idArticol){
+        console.log(idArticol);
+        this.$router.push(`/editArticle/${idArticol}`);
+      },
+      editArticle(idArticol){
+        console.log(idArticol);
+        this.$router.push(`/editArticle/${idArticol}`)
+      },
+
+      addArticle(){
+        this.$router.push({
+        name: 'addArticle',
+      });
+      }
+    },
+
+    created() {
+      this.refreshArticles();
+    },
+    mounted(){
+      this.refreshArticles();
+    }
   }
 </script>
