@@ -26,6 +26,11 @@ class ArticleService{
             headers: authHeader()
         });
     }
+    getArticlesByTipArticolAndUserId(tipArticol, userId){
+        return axios.get(`${API_URL}getArticlesByUser/${tipArticol}/${userId}`, {
+            headers: authHeader()
+        });
+    }
 }
 
 export default new ArticleService();

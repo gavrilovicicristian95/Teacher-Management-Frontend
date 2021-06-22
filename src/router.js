@@ -69,6 +69,62 @@ export const router = new Router({
       path:'/addArticle',
       name: 'addArticle',
       component: () => import('./views/AddArticle.vue')
+    },
+    {
+      path:'/addBook',
+      name: 'addBook',
+      component: () => import('./views/AddBook.vue')
+    },
+    {
+      path:'/addContract',
+      name: 'addContract',
+      component: () => import('./views/AddContract.vue')
+    },
+    
+    {
+      path:'/addPatent',
+      name: 'addPatent',
+      component: () => import('./views/AddPatent.vue')
+    },
+    {
+      path:'/addProduct',
+      name: 'addProduct',
+      component: () => import('./views/AddProductService.vue')
+    },
+    {
+      path:'/addCitation',
+      name: 'addCitation',
+      component: () => import('./views/AddCitation.vue')
+    },
+    {
+      path:'/addConferenceParticipation',
+      name: 'addConferenceParticipation',
+      component: () => import('./views/AddConferenceParticipation.vue')
+    },
+    {
+      path:'/editArticle/:id',
+      name: 'editArticle',
+      component: () => import('./views/EditArticle.vue')
+    },
+    {
+      path:'/addCourse',
+      name: 'addCourse',
+      component: () => import('./views/AddCourse.vue')
+    },
+    {
+      path:'/addActivity',
+      name: 'addActivity',
+      component: () => import('./views/AddTeachingActivity.vue')
+    },
+    {
+      path:'/addWorkActivity',
+      name: 'addWorkActivity',
+      component: () => import('./views/AddWorkActivity.vue')
+    },
+    {
+      path:'/addThesisCoord',
+      name: 'addThesisCoord',
+      component: () => import('./views/AddThesisCoordination.vue')
     }
   ]
 });
