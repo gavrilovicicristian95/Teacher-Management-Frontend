@@ -1,16 +1,16 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/academyMembers/';
-class ScientificWorkService{
-    addScientificWork(work){
-        return axios.post(API_URL + 'addAcademyMember', work, { headers: authHeader() });
+class AcademyMemberService{
+    addAcademyMember(academyMember){
+        return axios.post(API_URL + 'addAcademyMember', academyMember, { headers: authHeader() });
     }
-    getScientificWorksByTipArticolAndUserId(tipLucrare, userId){
-        return axios.get(`${API_URL}getAcademyMembersByUser/${tipLucrare}/${userId}`, {
+    getAcademymembersByTipMembruAndUserId(tipMembru, userId){
+        return axios.get(`${API_URL}getAcademyMembersByUser/${tipMembru}/${userId}`, {
             headers: authHeader()
         });
     }
     
 }
 
-export default new ScientificWorkService();
+export default new AcademyMemberService();

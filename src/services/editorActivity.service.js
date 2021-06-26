@@ -1,16 +1,16 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/editorActivities/';
-class ScientificWorkService{
-    addScientificWork(work){
-        return axios.post(API_URL + 'addEditorActivity', work, { headers: authHeader() });
+class EditorActivityService{
+    addEditorActivity(activity){
+        return axios.post(API_URL + 'addEditorActivity', activity, { headers: authHeader() });
     }
-    getScientificWorksByTipArticolAndUserId(tipLucrare, userId){
-        return axios.get(`${API_URL}getEditorActivitiesByUser/${tipLucrare}/${userId}`, {
+    getEditorActivityByTipActivitateAndUserId(tipActivitate, userId){
+        return axios.get(`${API_URL}getEditorActivitiesByUser/${tipActivitate}/${userId}`, {
             headers: authHeader()
         });
     }
     
 }
 
-export default new ScientificWorkService();
+export default new EditorActivityService();

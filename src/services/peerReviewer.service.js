@@ -1,16 +1,16 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/peerReviewers/';
-class ScientificWorkService{
-    addScientificWork(work){
-        return axios.post(API_URL + 'addPeerReviewer', work, { headers: authHeader() });
+class PeerReviewerService{
+    addPeerReviewer(peerReviewer){
+        return axios.post(API_URL + 'addPeerReviewer', peerReviewer, { headers: authHeader() });
     }
-    getScientificWorksByTipArticolAndUserId(tipLucrare, userId){
-        return axios.get(`${API_URL}getPeerReviewersByUser/${tipLucrare}/${userId}`, {
+    getPeerReviewers(tipReferent, userId){
+        return axios.get(`${API_URL}getPeerReviewersByUser/${tipReferent}/${userId}`, {
             headers: authHeader()
         });
     }
     
 }
 
-export default new ScientificWorkService();
+export default new PeerReviewerService();

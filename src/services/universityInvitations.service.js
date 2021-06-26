@@ -1,16 +1,16 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 const API_URL = 'http://localhost:8080/api/universityInvitations/';
-class ScientificWorkService{
-    addScientificWork(work){
-        return axios.post(API_URL + 'addUniversityInvitation', work, { headers: authHeader() });
+class UniversityInvitationService{
+    addUniversityInvitation(uniInv){
+        return axios.post(API_URL + 'addUniversityInvitation', uniInv, { headers: authHeader() });
     }
-    getScientificWorksByTipArticolAndUserId(tipLucrare, userId){
-        return axios.get(`${API_URL}getUniversityInvitationsByUser/${tipLucrare}/${userId}`, {
+    getUniversityInvitations(tipInvitatie, userId){
+        return axios.get(`${API_URL}getUniversityInvitationsByUser/${tipInvitatie}/${userId}`, {
             headers: authHeader()
         });
     }
     
 }
 
-export default new ScientificWorkService();
+export default new UniversityInvitationService();
