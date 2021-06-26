@@ -21,8 +21,8 @@ class CitationService{
         });
     }
 
-    getCitationsByTipCitatie(tipCitatie){
-        return axios.get(`${API_URL}getCitations/${tipCitatie}`, {
+    getCitationsByTipCitatie(tipCitatie,idUser){
+        return axios.get(`${API_URL}getCitationsByUser/${tipCitatie}/${idUser}`, {
             headers: authHeader()
         });
     }

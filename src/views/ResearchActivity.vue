@@ -938,7 +938,8 @@
         </v-data-table>
         </div>
     </div>
-        <div>
+    
+         <div>
         <br>
         <h3>Participari</h3>
           <v-btn filled class="primary " @click.once="addConferenceParticipation()">
@@ -1067,6 +1068,617 @@
         </v-data-table>
         </div>
     </div>
+    <div>
+        <br>
+        <h3>Lucrari stiintifice</h3>
+          <v-btn filled class="primary " @click.once="addConferenceParticipation()">
+            Adaugă lucrare
+          </v-btn>
+          <div>
+          <br>
+          <v-btn v-if="viewScientificWork == false" filled class="accent" small @click.once="viewScientificWork=true;">
+            Vezi lucrarile
+          </v-btn> 
+        </div>
+        
+        <v-btn v-if="viewScientificWork == true" filled class="accent" small @click.once="viewScientificWork=false;">
+            Ascunde lucrarile
+        </v-btn>
+        
+        <div style="padding-left:2em;" v-if="viewScientificWork==true">
+          <br>
+        <h3>13. Lucrări ştiinţifice în rezumat(se va puncta o singura data publicarea in rezumat ori in extenso)</h3>
+        <br>
+        <h4>a) în reviste cotate Web of Science cu factor de impact: </h4>
+        <br>
+        <v-data-table
+          :headers="headersLucrariWebScience"
+          :items="lucrariWebScience"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersLucrariWebScience" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',lucrariWebScience)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        <template v-slot:[`item.actions`]="{ item }">
+              <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="viewParticipation(item.idParticipation)"
+                    
+                    >mdi-file-eye</v-icon
+                  >
+                </template>
+                <span>Vizualizeaza</span>
+              </v-tooltip>
+              <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  @click="editParticipation(item.idParticipation)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+              </v-tooltip>
+            </template>
+        </v-data-table>
+        <br>
+        <h4>b) în volume din strainatate fara factor de impact</h4>
+        <br>
+        <v-data-table
+          :headers="headersLucrariFaraFactImpact"
+          :items="lucrariFaraFactImpact"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersLucrariFaraFactImpact" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',lucrariFaraFactImpact)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+       
+        </div>
+    </div>
+    <div>
+        <br>
+        <h3>14. Profesor/cercetator invitat la universităţi, centre si institute de cercetare(la initiativa probata a institutiei 
+gazda) cu identificarea temei de cercetare</h3>
+       
+          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+            Adauga invitatie
+          </v-btn>
+          <div>
+          <br>
+          <v-btn v-if="viewUniversityInvitations == false" filled class="accent" small @click.once="viewUniversityInvitations=true;">
+            Vezi invitatiile
+          </v-btn> 
+        </div>
+        
+        <v-btn v-if="viewUniversityInvitations == true" filled class="accent" small @click.once="viewUniversityInvitations=false;">
+            Ascunde invitatiile
+        </v-btn>
+        
+      <div v-if="viewUniversityInvitations == true" style="padding-left:2em;">
+        <h3>a)în străinatate</h3>
+        <v-data-table
+          :headers="headersUniversityInvitations"
+          :items="universityInvitationsStrainatate"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersUniversityInvitations" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',universityInvitationsStrainatate)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+         <h3>b)în tara</h3>
+        <v-data-table
+          :headers="headersUniversityInvitations"
+          :items="universityInvitationsInTara"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersUniversityInvitations" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',universityInvitationsInTara)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </div>
+      </div>
+        <div>
+        <br>
+        <h3>15. Membru al Academiei Române, şi al academiilor nationale din străinătate</h3>
+       
+          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+            Adauga 
+          </v-btn>
+          <div>
+          <br>
+          <v-btn v-if="viewMembru == false" filled class="accent" small @click.once="viewMembru=true;">
+            Vezi
+          </v-btn> 
+        </div>
+        
+        <v-btn v-if="viewMembru == true" filled class="accent" small @click.once="viewMembru=false;">
+            Ascunde
+        </v-btn>
+        
+      <div v-if="viewMembru == true" style="padding-left:2em;">
+        <h3> a) Membru al Academiei Române</h3>
+        <v-data-table
+          :headers="headersMembruAcademieRomana"
+          :items="membriAcademiaRomana"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersMembruAcademieRomana" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',membriAcademiaRomana)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+         <h3>b) Membru al Academiilor nationale din străinătate</h3>
+        <v-data-table
+          :headers="headersMembruAcademiiNationale"
+          :items="membriAcademiiNationale"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersMembruAcademiiNationale" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',membriAcademiiNationale)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </div>
+      </div>
+    <div>
+        <br>
+        <h3>16. Editor, membru în echipa editoriala(se va puncta o singura data pentru fiecare perioada de 5 ani)</h3>
+       
+          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+            Adauga 
+          </v-btn>
+          <div>
+          <br>
+          <v-btn v-if="viewEditingActivity == false" filled class="accent" small @click.once="viewEditingActivity=true;">
+            Vezi
+          </v-btn> 
+        </div>
+        
+        <v-btn v-if="viewEditingActivity == true" filled class="accent" small @click.once="viewEditingActivity=false;">
+            Ascunde
+        </v-btn>
+        
+      <div v-if="viewEditingActivity == true" style="padding-left:2em;">
+        <h3> a) articole stiintifice publicate in extenso in reviste cotate Web of Science si articole stiintifice indexate Scopus :</h3>
+        <br>
+        <h4>Editor</h4>
+        <v-data-table
+          :headers="headersEditorIndexatScopus"
+          :items="editorIndexateScopus"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersEditorIndexatScopus" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',editorIndexateScopus)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <br>
+        <h4>Membru in echipa editoriala</h4>
+        <v-data-table
+          :headers="headersMembruIndexatScopus"
+          :items="membruIndexateScopus"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersMembruIndexatScopus" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',membruIndexateScopus)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <h3> b) Anale UAIC, reviste UAIC , reviste indexate BDI</h3>
+        <br>
+        <h4>Editor</h4>
+        <v-data-table
+          :headers="headersEditorIndexateBDI"
+          :items="editorIndexateBDI"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersEditorIndexateBDI" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',editorIndexateBDI)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <br>
+        <h4>Membru in echipa editoriala</h4>
+        <v-data-table
+          :headers="headersMembruIndexateBDI"
+          :items="membruIndexateBDI"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersMembruIndexateBDI" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',membruIndexateBDI)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </div>
+      </div>
+       <div>
+        <br>
+        <h3>17. Coordonator,Membru in comitetul stiintific al conferintelor,congreselor, scolilor de vara</h3>
+       
+          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+            Adauga 
+          </v-btn>
+          <div>
+          <br>
+          <v-btn v-if="viewCoordEvents == false" filled class="accent" small @click.once="viewCoordEvents=true;">
+            Vezi
+          </v-btn> 
+        </div>
+        
+        <v-btn v-if="viewCoordEvents == true" filled class="accent" small @click.once="viewCoordEvents=false;">
+            Ascunde
+        </v-btn>
+        
+      <div v-if="viewCoordEvents == true" style="padding-left:2em;">
+        <h3>a) evenimente internationale:</h3>
+        <br>
+        <h4>Coordonator</h4>
+        <v-data-table
+          :headers="headersCoordEvenInternationale"
+          :items="coordonariEvenInternationale"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersCoordEvenInternationale" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',coordonariEvenInternationale)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <br>
+        <h4>Membru:</h4>
+        <v-data-table
+          :headers="headersMembruEvenInternationale"
+          :items="membruEvenInternationale"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersMembruEvenInternationale" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',membruEvenInternationale)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <h3>b) evenimente nationale: </h3>
+        <br>
+        <h4>Coordonator:</h4>
+        <v-data-table
+          :headers="headersCoordEvenNationale"
+          :items="coordonariEvenNationale"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersCoordEvenNationale" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',coordonariEvenNationale)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <br>
+        <h4>Membru:</h4>
+        <v-data-table
+          :headers="headersMembruEvenNationale"
+          :items="membruEvenNationale"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersMembruEvenNationale" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',membruEvenNationale)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </div>
+      </div>
+       <div>
+        <br>
+        <h3>18. Referent (peer-reviewer)-cu prezentarea unei dovezi</h3>
+       
+          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+            Adauga 
+          </v-btn>
+          <div>
+          <br>
+          <v-btn v-if="viewReferent == false" filled class="accent" small @click.once="viewReferent=true;">
+            Vezi
+          </v-btn> 
+        </div>
+        
+        <v-btn v-if="viewReferent == true" filled class="accent" small @click.once="viewReferent=false;">
+            Ascunde
+        </v-btn>
+        
+      <div v-if="viewReferent == true" style="padding-left:2em;">
+        <h3>a)Carti de specialitate/coordonare colectii:</h3>
+        <br>
+        <h4> în străinătate</h4>
+        <v-data-table
+          :headers="headersReferentCarte"
+          :items="referentCartiStrainatate"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersReferentCarte" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',referentCartiStrainatate)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <br>
+        <h4> în ţară </h4>
+        <v-data-table
+          :headers="headersReferentCarte"
+          :items="referentCartiInTara"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersReferentCarte" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',referentCartiInTara)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <h3>b)Reviste de specialitate:</h3>
+        
+        <v-data-table
+          :headers="headersReferentRevista"
+          :items="referentRevisteSpecialitate"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersReferentRevista" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',referentRevisteSpecialitate)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <br>
+        <h3>c) Conferinte indexate CORE</h3>
+        <v-data-table
+          :headers="headersReferentRevista"
+          :items="referentConferinteIndexate"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersReferentRevista" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',referentConferinteIndexate)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </div>
+      </div>
   </v-app> 
 </template>
 
@@ -1324,6 +1936,221 @@
           { text: 'Denumire Conferinta', value: 'denumireConferinta' },
           { text: 'Punctaj', value: 'punctaj' },
         ],
+        headersLucrariWebScience:[
+            {
+            text: 'Anul publicarii',
+            align: 'start',
+            sortable: false,
+            value: 'anulPublicarii',
+          },
+          { text: 'Titlu lucrare stiintifica', value: 'titluLucrare'},
+          { text: 'Autor lucrare', value: 'autorLucrare'},
+          { text:' Nr.autori', value: 'nrAutori' },
+           {text:'Titlu revista', value: 'titluRevista' },
+           { text:'Factor de impact', value: 'factorImpact' },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersLucrariFaraFactImpact:[
+            {
+            text: 'Anul publicarii',
+            align: 'start',
+            sortable: false,
+            value: 'anulPublicarii',
+          },
+          { text: 'Titlu lucrare stiintifica', value: 'titluLucrare'},
+          { text: 'Autor lucrare', value: 'autorLucrare'},
+          { text:' Nr.autori', value: 'nrAutori' },
+           {text:'Denumire volum', value: 'denumireVolum' },
+           { text:'Categorie Conferinta CORE', value: 'categorie' },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersUniversityInvitations:[
+            {
+            text: 'Denumire Universitate',
+            align: 'start',
+            sortable: false,
+            value: 'denumireUniversitate',
+          },
+          { text: 'Denumire Activitate', value: 'denumireActivitate'},
+          { text: 'Tema de cercetare', value: 'temaCercetare'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersMembruAcademieRomana:[
+            {
+            text: 'Numele si prenumele membrului',
+            align: 'start',
+            sortable: false,
+            value: 'numePrenume',
+          },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+         headersMembruAcademiiNationale:[
+            {
+            text: 'Numele academiei',
+            align: 'start',
+            sortable: false,
+            value: 'numeAcademie',
+          },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+         headersEditorIndexatScopus:[
+            {
+            text: 'Perioada editarii',
+            align: 'start',
+            sortable: false,
+            value: 'perioadaEditarii',
+          },
+          { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
+          { text: 'Titlul editurii', value: 'titlulEditurii'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersMembruIndexatScopus:[
+          {
+            text: 'Numele si prenumele membrului',
+            align: 'start',
+            sortable: false,
+            value: 'numePrenume',
+          },
+            {
+            text: 'Perioada editarii',
+            value: 'perioadaEditarii',
+          },
+          { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
+          { text: 'Titlul editurii', value: 'titlulEditurii'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersEditorIndexateBDI:[
+            {
+            text: 'Perioada editarii',
+            align: 'start',
+            sortable: false,
+            value: 'perioadaEditarii',
+          },
+          { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+         headersMembruIndexateBDI:[
+             {
+            text: 'Numele si prenumele membrului',
+            align: 'start',
+            sortable: false,
+            value: 'numePrenume',
+          },
+            {
+            text: 'Perioada editarii',
+            value: 'perioadaEditarii',
+          },
+          { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersCoordEvenInternationale:[
+             {
+            text: 'Perioada evenimentului',
+            align: 'start',
+            sortable: false,
+            value: 'perioadaEvenimentului',
+          },
+            {
+            text: 'Titlul conferintei',
+            value: 'titlulConferintei',
+          },
+          { text: 'Rang conferinta', value: 'rangConferinta'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersMembruEvenInternationale:[
+          {
+            text: 'Numele si prenumele membrului',
+            align: 'start',
+            sortable: false,
+            value: 'numePrenume',
+          },
+             {
+            text: 'Perioada evenimentului',
+           
+            value: 'perioadaEvenimentului',
+          },
+            {
+            text: 'Titlul conferintei',
+            value: 'titlulConferintei',
+          },
+          { text: 'Rang conferinta', value: 'rangConferinta'},
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersCoordEvenNationale:[
+             {
+            text: 'Perioada evenimentului',
+            align: 'start',
+            sortable: false,
+            value: 'perioadaEvenimentului',
+          },
+            {
+            text: 'Titlul conferintei',
+            value: 'titlulConferintei',
+          },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersMembruEvenNationale:[
+          {
+            text: 'Numele si prenumele membrului',
+            align: 'start',
+            sortable: false,
+            value: 'numePrenume',
+          },
+             {
+            text: 'Perioada evenimentului',
+           
+            value: 'perioadaEvenimentului',
+          },
+            {
+            text: 'Titlul conferintei',
+            value: 'titlulConferintei',
+          },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersReferentCarte:[
+          {
+            text: 'Titlul cartii',
+            align: 'start',
+            sortable: false,
+            value: 'titlulCartiiRevistei',
+          },
+             {
+            text: 'Anul publicarii',
+           
+            value: 'anulPublicarii',
+          },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersReferentRevista:[
+          {
+            text: 'Titlul revistei',
+            align: 'start',
+            sortable: false,
+            value: 'titlulCartiiRevistei',
+          },
+             {
+            text: 'Anul publicarii',
+           
+            value: 'anulPublicarii',
+          },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        referentCartiStrainatate:[],
+        referentCartiInTara:[],
+        referentRevisteSpecialitate:[],
+        referentConferinteIndexate:[],
+        coordonariEvenInternationale:[],
+        membruEvenInternationale:[],
+        coordonariEvenNationale: [],
+        membruEvenNationale:[],
+        editorIndexateScopus: [],
+        editorIndexateBDI: [],
+        membruIndexateScopus: [],
+        membruIndexateBDI:[],
+        membriAcademiaRomana:[],
+        membriAcademiiNationale:[],
+        lucrariFaraFactImpact:[],
+        lucrariWebScience:[],
         participationInvitedSpeaker: [],
         participationScoliVaraInter: [],
         participationScoliVaraNat: [],
@@ -1352,89 +2179,99 @@
         citationsCartiStrainatate: [],
         citationsCartiTara: [],
         citationsVolumeConferinta:[],
+        universityInvitationsStrainatate: [],
+        universityInvitationsInTara:[],
         viewArticles : false,
         viewBooks : false,
         viewContracts : false,
         viewPatents : false,
         viewProducts : false,
         viewCitations: false,
-        viewParticipations: false
+        viewParticipations: false,
+        viewScientificWork: false,
+        viewUniversityInvitations: false,
+        viewMembru: false,
+        viewEditingActivity: false,
+        viewCoordEvents: false,
+        viewReferent: false
+      
+
       }
     },
 
     methods:{
       refreshParticipations(){
-        ConferenceService.getConferencesByTipConference("invitedSpeaker").then(res =>{
+        ConferenceService.getConferencesByTipConference("invitedSpeaker",this.idUser).then(res =>{
           this.participationInvitedSpeaker=res.data;
         });
-        ConferenceService.getConferencesByTipConference("scoliVaraInternationale").then(res =>{
+        ConferenceService.getConferencesByTipConference("scoliVaraInternationale",this.idUser).then(res =>{
           this.participationScoliVaraInter=res.data;
         });
-        ConferenceService.getConferencesByTipConference("scoliVaraNationale").then(res =>{
+        ConferenceService.getConferencesByTipConference("scoliVaraNationale",this.idUser).then(res =>{
           this.participationScoliVaraNat=res.data;
         });
       
       },
       refreshCitations(){
-        CitationService.getCitationsByTipCitatie("revisteWebOfScience").then(res =>{
+        CitationService.getCitationsByTipCitatie("revisteWebOfScience",this.idUser).then(res =>{
           this.citationsWebScience=res.data;
         });
-        CitationService.getCitationsByTipCitatie("revisteIndexateScopus").then(res =>{
+        CitationService.getCitationsByTipCitatie("revisteIndexateScopus",this.idUser).then(res =>{
           this.citationsIndexateScopus=res.data;
         });
-        CitationService.getCitationsByTipCitatie("citariCartiStrainatate").then(res =>{
+        CitationService.getCitationsByTipCitatie("citariCartiStrainatate",this.idUser).then(res =>{
           this.citationsCartiStrainatate=res.data;
         });
-        CitationService.getCitationsByTipCitatie("citariCartiInTara").then(res =>{
+        CitationService.getCitationsByTipCitatie("citariCartiInTara",this.idUser).then(res =>{
           this.citationsCartiTara=res.data;
         });
-        CitationService.getCitationsByTipCitatie("volumeConferinte").then(res =>{
+        CitationService.getCitationsByTipCitatie("volumeConferinte",this.idUser).then(res =>{
           this.citationsVolumeConferinta=res.data;
         });
       },
       refreshPatents(){
-          PatentService.getPatentsByTipBrevet("breveteInternationale").then(res => {
+          PatentService.getPatentsByTipBrevet("breveteInternationale",this.idUser).then(res => {
             this.patentsInternationale = res.data;
          });
-         PatentService.getPatentsByTipBrevet("breveteNationale").then(res => {
+         PatentService.getPatentsByTipBrevet("breveteNationale",this.idUser).then(res => {
             this.patentsNationale = res.data;
          });
-         PatentService.getPatentsByTipBrevet("produseInTara").then(res => {
+         PatentService.getPatentsByTipBrevet("produseInTara",this.idUser).then(res => {
             this.productInTara = res.data;
          });
-         PatentService.getPatentsByTipBrevet("produseStrainatate").then(res => {
+         PatentService.getPatentsByTipBrevet("produseStrainatate",this.idUser).then(res => {
             this.productStrainatate = res.data;
          });
       },
       
       refreshBooks(){
-        BookService.getBooksByTipCarte("strainatate").then(res => {
+        BookService.getBooksByTipCarte("strainatate",this.idUser).then(res => {
         this.booksStrainatate = res.data;
          });
-         BookService.getBooksByTipCarte("taraAcreditatCNCS").then(res => {
+         BookService.getBooksByTipCarte("taraAcreditatCNCS",this.idUser).then(res => {
         this.booksTara = res.data;
          });
-         BookService.getBooksByTipCarte("alteEdituri").then(res => {
+         BookService.getBooksByTipCarte("alteEdituri",this.idUser).then(res => {
         this.booksAlteEdituri = res.data;
          });
-         BookService.getBooksByTipCarte("coordStrainatate").then(res => {
+         BookService.getBooksByTipCarte("coordStrainatate",this.idUser).then(res => {
         this.booksCoordStrainatate = res.data;
          });
-         BookService.getBooksByTipCarte("coordTaraAcreditatCNCS").then(res => {
+         BookService.getBooksByTipCarte("coordTaraAcreditatCNCS",this.idUser).then(res => {
         this.booksCoordTara = res.data;
          });
       },
       refresContracts(){
-        ContractService.getContractByTipContract("finantareInternationalaDirector").then(res => {
+        ContractService.getContractByTipContract("finantareInternationalaDirector",this.idUser).then(res => {
           this.contractsFinInDir = res.data;
         });
-        ContractService.getContractByTipContract("finantareInternationalaMembru").then(res => {
+        ContractService.getContractByTipContract("finantareInternationalaMembru",this.idUser).then(res => {
           this.contractsFinInMem = res.data;
         });
-        ContractService.getContractByTipContract("finantareNationalaDirector").then(res => {
+        ContractService.getContractByTipContract("finantareNationalaDirector",this.idUser).then(res => {
           this.contractsFinNatDir = res.data;
         });
-        ContractService.getContractByTipContract("finantareNationalaMembru").then(res => {
+        ContractService.getContractByTipContract("finantareNationalaMembru",this.idUser).then(res => {
           this.contractsFinNatMem = res.data;
         });
       },

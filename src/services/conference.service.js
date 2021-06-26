@@ -21,8 +21,8 @@ class ConferenceService{
         });
     }
 
-    getConferencesByTipConference(tipConferinta){
-        return axios.get(`${API_URL}getConferenceParticipations/${tipConferinta}`, {
+    getConferencesByTipConference(tipConferinta,idUser){
+        return axios.get(`${API_URL}getConferenceParticipationsByUser/${tipConferinta}/${idUser}`, {
             headers: authHeader()
         });
     }

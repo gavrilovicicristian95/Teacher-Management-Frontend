@@ -21,8 +21,8 @@ class ContractService{
         });
     }
 
-    getContractByTipContract(tipContract){
-        return axios.get(`${API_URL}getContracts/${tipContract}`, {
+    getContractByTipContract(tipContract,idUser){
+        return axios.get(`${API_URL}getContractsByUser/${tipContract}/${idUser}`, {
             headers: authHeader()
         });
     }

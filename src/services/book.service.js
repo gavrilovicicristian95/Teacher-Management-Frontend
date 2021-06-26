@@ -21,8 +21,8 @@ class BookService{
         });
     }
 
-    getBooksByTipCarte(tipCarte){
-        return axios.get(`${API_URL}getBooks/${tipCarte}`, {
+    getBooksByTipCarte(tipCarte,idUser){
+        return axios.get(`${API_URL}getBooksByUser/${tipCarte}/${idUser}`, {
             headers: authHeader()
         });
     }
