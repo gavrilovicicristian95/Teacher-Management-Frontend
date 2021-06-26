@@ -125,7 +125,12 @@ export const router = new Router({
       path:'/addThesisCoord',
       name: 'addThesisCoord',
       component: () => import('./views/AddThesisCoordination.vue')
-    }
+    },
+    {
+      path:'/addScientificWork',
+      name: 'addScientificWork',
+      component: () => import('./views/AddScientificWork.vue')
+    },
   ]
 });
 
