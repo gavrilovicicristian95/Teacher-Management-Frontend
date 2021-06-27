@@ -24,34 +24,36 @@
                     :label="articleSelect"
                     outlined
                     class="my-2"
+                    @change="isValid=true;"
                     ></v-select>
+                    
                 <fieldset class="form-group">
                     <label>Anul publicarii</label>
-                    <input type="text" class="form-control" required v-model="anulPublicarii">
+                    <input type="number" min="1999" step="1" max="2021" class="form-control" required v-model="anulPublicarii">
                 </fieldset>
                 <fieldset class="form-group" >
                     <label>Titlu Articol</label>
-                    <input type="text" class="form-control" required v-model="titluArticol">
+                <input type="text"  class="form-control" required v-model="titluArticol">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Autori</label>
-                    <input type="text" class="form-control" required v-model="autori">
+                    <input type="text" pattern="([\w-]((\s)[\w-])?(,)?(\s)?)*" class="form-control" required v-model="autori">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Nr.Autori</label>
-                    <input type="text" class="form-control" required v-model="nrAutori">
+                    <input type="number" class="form-control" required v-model="nrAutori">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Titlu,Revista,VolumNr</label>
-                    <input type="text" class="form-control" required v-model="titluRevistaVolumNr">
+                    <input type="text" pattern="[\w\s]+,(\s)?[\w\s]+,(\s)?[\d]+(.[\d]+)*(,[\d]+)*"  class="form-control" required v-model="titluRevistaVolumNr" >
                 </fieldset>
                 <fieldset class="form-group" v-if="articleType=='webScience'">
                     <label>Factor Impact</label>
-                    <input type="text" class="form-control"  v-model="factoriImpact">
+                    <input type="number" class="form-control"  v-model="factoriImpact">
                 </fieldset>
                 <fieldset class="form-group" v-if="articleType=='indexateScopus'">
                     <label>SJR</label>
-                    <input type="text" class="form-control"  v-model="sjr">
+                    <input type="number" class="form-control"  v-model="sjr">
                 </fieldset>
                 <fieldset class="form-group" v-if="articleType=='volumeConferinte'">
                     <label>Denumire volum conferinta</label>
@@ -61,9 +63,8 @@
                     <label>Categorie</label>
                     <input type="text" class="form-control" required v-model="categorie">
                 </fieldset>
-                
-                    
-                <button class="btn btn-success" type="submit">Save</button>
+               
+                <button  class="btn btn-success" :disabled="!this.isValid" type="submit">Save</button>
             </form>
         </div>
     </v-app>
@@ -75,7 +76,8 @@ import ArticleService from '../services/article.service'
 export default {
     data () {
       return {
-
+        isValid: false,
+        year: new Date().getFullYear(),
         anulPublicarii: "",
         titluArticol: "",
         autori: "",

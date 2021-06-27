@@ -1,5 +1,6 @@
 <template>
     <v-app>
+
        <v-form ref="form" lazy-validation>
       
          <v-card-text>
@@ -12,8 +13,8 @@
                     >
                       <v-text-field
                      
-                        v-model="this.article.anulPublicarii"
-                        label="Dessert name"
+                        v-model="article.anulPublicarii"
+                        :label="article.anulPublicarii"
                       ></v-text-field>
                     </v-col>
                     
@@ -22,7 +23,7 @@
               </v-card-text>
       <v-text-field
         v-model="article.anulPublicarii"
-        label="Description"
+        :label="this.article.anulPublicarii"
         
       ></v-text-field>
 
@@ -56,28 +57,17 @@ export default {
     //components:{ VFormBase },
     data () {
       return {
-        id: 0,
-        article : null,
-        myValue: {
-        anulPublicarii: '111',
-        titluArticol: "1111",
-        autori: "111",
-        nrAutori: "111",
+        id: this.$route.params.id,
+        article : []
         
-      },
-       mySchema: {
-        anulPublicarii: { type: 'text', label: 'Name' },
-        titluArticol: { type: 'text', label: 'Password' },
-        autori: { type: 'text', label: 'Email' },
-        nrAutori: { type: 'text', label: 'Checkbox' }
-         }
       
       };
     },
     created() {
-            this.id = this.$route.params.id;
-            this.article=this.getArticleById();
-            this.myValue.anulPublicarii=this.article.anulPublicarii;
+           
+            this.article=this.getArticleById(this.id);
+            console.log(this.article)
+    
             
         },
     methods:{
@@ -118,6 +108,7 @@ export default {
       }
     },
     mounted() {
+       this.article=this.getArticleById(this.id);
 
     }
   }
