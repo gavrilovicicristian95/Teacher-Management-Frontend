@@ -1,8 +1,13 @@
 <template>
 
   <v-app> 
+   
+    <h2>Activitate didactica</h2>
+    <br>
+    <br>
     
     <div>
+    
       <h3>Articole</h3>
 
         <v-btn filled class="primary" @click.once="addArticle()">
@@ -40,10 +45,13 @@
           :items-per-page="5"
           class="elevation-1">
           
+        
+         
           <template slot="body.append">
             <tr>
               <td v-for="(header,i) in headersWebScience" :key="i">
                   <div v-if="header.value == 'punctaj'">
+                    
                       <th>{{sumField('punctaj',articlesWebScience)}}</th>
                   </div>
                   <div v-else-if=" i == 0">
@@ -84,7 +92,7 @@
                     >mdi-pencil</v-icon
                   >
                 </template>
-                <span>Vizualizeaza</span>
+                <span>Editeaza</span>
             </v-tooltip>
             <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
@@ -97,10 +105,42 @@
                     >mdi-delete
                   </v-icon>
                 </template>
-                <span>Editeaza</span>
+                <span>Sterge</span>
             </v-tooltip>
           </template>
+        
         </v-data-table>
+        <br>
+        <div style="display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+        ">
+            <download-excel
+              class="btn btn-default"
+              :data="articlesWebScience"
+
+              worksheet="My Worksheet"
+              name="articlesWebScience.xls"
+              style="background-color:grey;color: white;"
+            >
+              Download Excel
+            </download-excel>
+            <span style="padding-right:2em;"></span>
+           <download-excel
+            class="btn btn-default"
+            :data="articlesWebScience"
+            type="csv"
+            name="articlesWebScience.xls"
+            style="background-color:grey;color: white;"
+          >
+            Download CSV 
+            </download-excel>
+           
+      </div>
+         <br>
+        
         <br>
         <h4>2. Articole ştiintifice indexate Scopus</h4>
         <br>
@@ -125,7 +165,66 @@
               </td>
             </tr>
           </template>
+       <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editArticle(item.idArticol)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteItem(item.idArticol)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
+          <br>
+        <div style="display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+        ">
+            <download-excel
+              class="btn btn-default"
+              :data="articlesIndexScopus"
+
+              worksheet="My Worksheet"
+              name="articlesIndexScopus.xls"
+              style="background-color:grey;color: white;"
+            >
+              Download Excel
+            </download-excel>
+            <span style="padding-right:2em;"></span>
+           <download-excel
+            class="btn btn-default"
+            :data="articlesIndexScopus"
+            type="csv"
+            name="articlesIndexScopus.csv"
+            style="background-color:grey;color: white;"
+          >
+            Download CSV 
+            </download-excel>
+           
+      </div>
+         <br>
+     
         <br>
         <h4>3. Articole ştiintifice publicate în extenso în reviste indexate BDI</h4>
         <br>
@@ -151,7 +250,65 @@
               </td>
             </tr>
           </template>
+           <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editArticle(item.idArticol)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteItem(item.idArticol)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
+          <br>
+        <div style="display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+        ">
+            <download-excel
+              class="btn btn-default"
+              :data="articlesIndexBDI"
+
+              worksheet="My Worksheet"
+              name="articlesIndexBDI.xls"
+              style="background-color:grey;color: white;"
+            >
+              Download Excel
+            </download-excel>
+            <span style="padding-right:2em;"></span>
+           <download-excel
+            class="btn btn-default"
+            :data="articlesIndexBDI"
+            type="csv"
+            name="articlesIndexBDI.csv"
+            style="background-color:grey;color: white;"
+          >
+            Download CSV 
+            </download-excel>
+           
+      </div>
+         <br>
         <br>
         <h4>4. Articole ştiintifice publicate în extenso în reviste de specialitate neindexate</h4>
         <br>
@@ -176,7 +333,65 @@
               </td>
             </tr>
           </template>
+           <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editArticle(item.idArticol)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteItem(item.idArticol)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
           </v-data-table>
+            <br>
+        <div style="display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+        ">
+            <download-excel
+              class="btn btn-default"
+              :data="articlesNonIndex"
+
+              worksheet="My Worksheet"
+              name="articlesNonIndex.xls"
+              style="background-color:grey;color: white;"
+            >
+              Download Excel
+            </download-excel>
+            <span style="padding-right:2em;"></span>
+           <download-excel
+            class="btn btn-default"
+            :data="articlesNonIndex"
+            type="csv"
+            name="articlesNonIndex.csv"
+            style="background-color:grey;color: white;"
+          >
+            Download CSV 
+            </download-excel>
+           
+      </div>
+         <br>
         <br>
         <h4>5. Articole ştiintifice publicate în extenso in volumele conferinţelor, în dicţionare şi enciclopedii de specialitate</h4>
         <br>
@@ -201,7 +416,65 @@
               </td>
             </tr>
           </template>
+           <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editArticle(item.idArticol)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteItem(item.idArticol)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
+          <br>
+        <div style="display: inline-flex;
+        flex: 0 0 auto;
+        flex-direction: row;
+        justify-content: center;
+        align-self: center;
+        ">
+            <download-excel
+              class="btn btn-default"
+              :data="articlesExtenso"
+
+              worksheet="My Worksheet"
+              name="articlesExtenso.xls"
+              style="background-color:grey;color: white;"
+            >
+              Download Excel
+            </download-excel>
+            <span style="padding-right:2em;"></span>
+           <download-excel
+            class="btn btn-default"
+            :data="articlesExtenso"
+            type="csv"
+            name="articlesExtenso.csv"
+            style="background-color:grey;color: white;"
+          >
+            Download CSV 
+            </download-excel>
+           
+      </div>
+         <br>
       </div>
     </div>
   
@@ -250,35 +523,34 @@
               </td>
             </tr>
           </template>
-        <template v-slot:[`item.actions`]="{ item }">
-              <v-tooltip>
+         <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     color="primary"
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewBook(item.idBook)"
-                    
-                    >mdi-file-eye</v-icon
-                  >
-                </template>
-                <span>Vizualizeaza</span>
-              </v-tooltip>
-              <v-tooltip>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                  @click="editBook(item.idBook)"
+                    @click="editActivity(item)"
                     >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Editeaza</span>
-              </v-tooltip>
-            </template>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b) în țară acreditate de CNCS:</h4>
@@ -305,6 +577,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>c) alte edituri:</h4>
@@ -330,6 +630,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -362,34 +690,33 @@
             </tr>
           </template>
         <template v-slot:[`item.actions`]="{ item }">
-              <v-tooltip>
+            <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     color="primary"
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewBook(item.idBook)"
-                    
-                    >mdi-file-eye</v-icon
-                  >
-                </template>
-                <span>Vizualizeaza</span>
-              </v-tooltip>
-              <v-tooltip>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                  @click="editBook(item.idBook)"
+                    @click="editActivity(item)"
                     >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Editeaza</span>
-              </v-tooltip>
-            </template>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b) în țară acreditate de CNCS:</h4>
@@ -415,6 +742,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
        
@@ -467,35 +822,35 @@
               </td>
             </tr>
           </template>
-        <template v-slot:[`item.actions`]="{ item }">
-              <v-tooltip>
+       <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     color="primary"
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewContract(item.idContract)"
-                    
-                    >mdi-file-eye</v-icon
-                  >
-                </template>
-                <span>Vizualizeaza</span>
-              </v-tooltip>
-              <v-tooltip>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                  @click="editContract(item.idContract)"
+                    @click="editActivity(item)"
                     >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Editeaza</span>
-              </v-tooltip>
-            </template>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
+            
         </v-data-table>
         <br>
         <h4>b) )finanţare internationala: membru:valoare lei contract UAIC anual/1000lei/nr membrilor echipei de cercetare:</h4>
@@ -521,6 +876,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
         <br>
@@ -548,6 +931,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>d) )finanţare nationala: membru:valoare lei contract UAIC anual/2000lei/nr membrilor echipei de cercetare:</h4>
@@ -573,6 +984,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -624,35 +1063,34 @@
               </td>
             </tr>
           </template>
-        <template v-slot:[`item.actions`]="{ item }">
-              <v-tooltip>
+       <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     color="primary"
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewBrevet(item.idBrevet)"
-                    
-                    >mdi-file-eye</v-icon
-                  >
-                </template>
-                <span>Vizualizeaza</span>
-              </v-tooltip>
-              <v-tooltip>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                  @click="editBrevet(item.idBrevet)"
+                    @click="editActivity(item)"
                     >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Editeaza</span>
-              </v-tooltip>
-            </template>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b)Naţional</h4>
@@ -678,6 +1116,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -728,35 +1194,34 @@
               </td>
             </tr>
           </template>
-        <template v-slot:[`item.actions`]="{ item }">
-              <v-tooltip>
+       <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     color="primary"
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewProduct(item.idProduct)"
-                    
-                    >mdi-file-eye</v-icon
-                  >
-                </template>
-                <span>Vizualizeaza</span>
-              </v-tooltip>
-              <v-tooltip>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                  @click="editProduct(item.idProduct)"
+                    @click="editActivity(item)"
                     >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Editeaza</span>
-              </v-tooltip>
-            </template>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b) in tara</h4>
@@ -782,6 +1247,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -833,34 +1326,33 @@
             </tr>
           </template>
         <template v-slot:[`item.actions`]="{ item }">
-              <v-tooltip>
+            <v-tooltip>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     color="primary"
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewCitation(item.idCitation)"
-                    
-                    >mdi-file-eye</v-icon
-                  >
-                </template>
-                <span>Vizualizeaza</span>
-              </v-tooltip>
-              <v-tooltip>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                  @click="editCitation(item.idCitation)"
+                    @click="editActivity(item)"
                     >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Editeaza</span>
-              </v-tooltip>
-            </template>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b)în reviste indexate Scopus :(</h4>
@@ -887,6 +1379,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>c)Citare in carti din strainatate sau in reviste BDI:</h4>
@@ -912,6 +1432,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
          <h4>d)Citare in carti din tara sau in reviste neindexate:</h4>
@@ -1724,14 +2272,16 @@ gazda) cu identificarea temei de cercetare</h3>
   import UniversityInvitationsService from  '../services/universityInvitations.service'
   import ScientificCommitteeService from  '../services/scientificCommitte.service'
   import AcademyMemberService from  '../services/academyMember.service'
-  import JsonExcel from "vue-json-excel";
-  import Vue from "vue";
-  Vue.component("downloadExcel", JsonExcel);
+
+import Vue from "vue";
+import JsonExcel from "vue-json-excel";
+ 
+Vue.component("downloadExcel", JsonExcel);
   
   export default {
     data () {
       return {
-
+        sum : 0,
         deleteIndex: -1,
         idUser: this.$store.state.auth.user.id,
         dialog: false,
@@ -1749,6 +2299,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Titlu Revista, volum, nr', value: 'titluRevistaVolumNr' },
           { text: 'SJR', value: 'sjr' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }          
         ],
         headersExtenso:[
            {
@@ -1763,6 +2319,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Titlu Revista, volum, nr', value: 'titluRevistaVolumNr' },
           { text: 'SJR', value: 'SJR' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersEnciclopedii:[
            {
@@ -1778,6 +2340,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Categorie', value: 'categorie' },
           { text: '', value: 'SJR' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersBDI:[
            {
@@ -1791,6 +2359,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Titlu Revista, volum, nr', value: 'titluRevistaVolumNr' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
          
         ],
         headersWebScience: [
@@ -1846,6 +2420,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr.autori in strainatate', value: 'nrAutori' },
           { text: 'Editura', value: 'editura' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersTaraAcreditatCNCS:[
            {
@@ -1860,6 +2440,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr.autori in strainatate', value: 'nrAutori' },
           { text: 'Editura', value: 'editura' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersPublicatTara:[
            {
@@ -1874,6 +2460,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr.autori in strainatate', value: 'nrAutori' },
           { text: 'Editura', value: 'editura' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersAlteEdituri:[
            {
@@ -1888,6 +2480,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr.autori in strainatate', value: 'nrAutori' },
           { text: 'Editura', value: 'editura' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersConFinMembru:[
            {
@@ -1902,6 +2500,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr. membrilor echipei de cercetare', value: 'nrMembrilor'},
           { text: 'Valoare lei contract anual', value: 'valoareLeiContract' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersConFinDirector:[
            {
@@ -1914,6 +2518,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Denumire Contract', value: 'denumireContract'},
           { text: 'Valoare lei contract anual', value: 'valoareLeiContract' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersBrevete:[
            {
@@ -1926,6 +2536,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Autor brevet', value: 'autor'},
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersProduse:[
            {
@@ -1938,6 +2554,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Autor produs/servicii', value: 'autor'},
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersRevisteScopusWeb:[
            {
@@ -1952,6 +2574,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Titlul revistei, volum, numar, unde este citat articolul', value: 'titluVolumNr' },
           { text: 'Factor de impact', value: 'factorImpact' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersOtherCitations:[
             {
@@ -1965,6 +2593,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Titlul monografiei, volum, numar, unde este citat articolul', value: 'titluVolumNr' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersParticipations:[
             {
@@ -1977,6 +2611,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Autor lucrare', value: 'autor'},
           { text: 'Denumire Conferinta', value: 'denumireConferinta' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersLucrariWebScience:[
             {
@@ -1991,6 +2631,12 @@ gazda) cu identificarea temei de cercetare</h3>
            {text:'Titlu revista', value: 'titluRevista' },
            { text:'Factor de impact', value: 'factorImpact' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersLucrariFaraFactImpact:[
             {
@@ -2005,6 +2651,12 @@ gazda) cu identificarea temei de cercetare</h3>
            {text:'Denumire volum', value: 'denumireVolum' },
            { text:'Categorie Conferinta CORE', value: 'categorie' },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersUniversityInvitations:[
             {
@@ -2016,6 +2668,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Denumire Activitate', value: 'denumireActivitate'},
           { text: 'Tema de cercetare', value: 'temaCercetare'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersMembruAcademieRomana:[
             {
@@ -2025,6 +2683,12 @@ gazda) cu identificarea temei de cercetare</h3>
             value: 'numePrenume',
           },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
          headersMembruAcademiiNationale:[
             {
@@ -2034,6 +2698,12 @@ gazda) cu identificarea temei de cercetare</h3>
             value: 'numeAcademie',
           },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
          headersEditorIndexatScopus:[
             {
@@ -2045,6 +2715,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
           { text: 'Titlul editurii', value: 'titlulEditurii'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersMembruIndexatScopus:[
           {
@@ -2060,6 +2736,12 @@ gazda) cu identificarea temei de cercetare</h3>
           { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
           { text: 'Titlul editurii', value: 'titlulEditurii'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersEditorIndexateBDI:[
             {
@@ -2070,6 +2752,12 @@ gazda) cu identificarea temei de cercetare</h3>
           },
           { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
          headersMembruIndexateBDI:[
              {
@@ -2084,6 +2772,12 @@ gazda) cu identificarea temei de cercetare</h3>
           },
           { text: 'Titlu revista, volum, nr.', value: 'titluRevistaVolum'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersCoordEvenInternationale:[
              {
@@ -2098,6 +2792,12 @@ gazda) cu identificarea temei de cercetare</h3>
           },
           { text: 'Rang conferinta', value: 'rangConferinta'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersMembruEvenInternationale:[
           {
@@ -2117,6 +2817,12 @@ gazda) cu identificarea temei de cercetare</h3>
           },
           { text: 'Rang conferinta', value: 'rangConferinta'},
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersCoordEvenNationale:[
              {
@@ -2130,6 +2836,12 @@ gazda) cu identificarea temei de cercetare</h3>
             value: 'titlulConferintei',
           },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersMembruEvenNationale:[
           {
@@ -2148,6 +2860,12 @@ gazda) cu identificarea temei de cercetare</h3>
             value: 'titlulConferintei',
           },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersReferentCarte:[
           {
@@ -2162,6 +2880,12 @@ gazda) cu identificarea temei de cercetare</h3>
             value: 'anulPublicarii',
           },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         headersReferentRevista:[
           {
@@ -2176,6 +2900,12 @@ gazda) cu identificarea temei de cercetare</h3>
             value: 'anulPublicarii',
           },
           { text: 'Punctaj', value: 'punctaj' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         ],
         referentCartiStrainatate:[],
         referentCartiInTara:[],
@@ -2242,6 +2972,7 @@ gazda) cu identificarea temei de cercetare</h3>
     },
 
     methods:{
+
       refreshParticipations(){
         ConferenceService.getConferencesByTipConference("invitedSpeaker",this.idUser).then(res =>{
           this.participationInvitedSpeaker=res.data;
@@ -2415,6 +3146,14 @@ gazda) cu identificarea temei de cercetare</h3>
        
         this.$router.push(`/editArticle/${idArticol}`);
       },
+      editActivity(item){
+       
+        console.log(item)
+      },
+      deleteActivity(item){
+       
+        console.log(item)
+      },
       viewBook(idBook){
         console.log(idBook);
         this.$router.push(`/editBook/${idBook}`);
@@ -2454,6 +3193,11 @@ gazda) cu identificarea temei de cercetare</h3>
         name: 'addCitation',
       });
       },
+      addScientificWork(){
+        this.$router.push({
+        name: 'addScientificWork',
+      });
+      },
       addConferenceParticipation(){
          this.$router.push({
         name: 'addConferenceParticipation',
@@ -2479,13 +3223,15 @@ gazda) cu identificarea temei de cercetare</h3>
         name: 'addEditorActivity',
       });
       },
-      addAcademymember(){
+      addAcademyMember(){
          this.$router.push({
         name: 'addAcademyMember',
       });
       },
       sumField(key,data) {
+        
         // sum data in give key (property)
+       
         return data.reduce((a, b) => a + (b[key] || 0), 0)
     },
     deleteItem(id){
@@ -2494,6 +3240,7 @@ gazda) cu identificarea temei de cercetare</h3>
       this.dialogDelete = true
       
     },
+    
    
     deleteItemConfirm () {
       ArticleService.deleteArticle(this.deleteIndex);

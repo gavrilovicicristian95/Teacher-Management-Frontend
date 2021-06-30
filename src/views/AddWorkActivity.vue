@@ -52,7 +52,7 @@ export default {
 
     methods:{
       saveWorkActivity(){
-         
+         this.punctaj=this.nrPagini * 0.1
           var activityObject={
               idUser: this.idUser,
               anulPublicarii: this.anulPublicarii,

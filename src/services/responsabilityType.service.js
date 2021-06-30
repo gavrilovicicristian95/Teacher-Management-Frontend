@@ -11,8 +11,8 @@ class ResponsabilityTypeService{
 
    
 
-    getAllResponsabilityTypes(){
-        return axios.get(`${API_URL}getAllResponsabilitesTypes`, {
+    getAllResponsabilityTypes(tipResponsabilitate){
+        return axios.get(`${API_URL}getAllResponsabilitesTypesByTipResponsabilitate/${tipResponsabilitate}`, {
             headers: authHeader()
         });
     }

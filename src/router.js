@@ -175,6 +175,16 @@ export const router = new Router({
       path:'/addProject',
       name: 'addProject',
       component: () => import('./views/AddMobilitiesProject.vue')
+    },
+    {
+      path:'/addResponsabilityUniv',
+      name: 'addResponsabilityUniv',
+      component: () => import('./views/AddResponsabilitiesUniv.vue')
+    },
+    {
+      path:'/addResponsabilitySenat',
+      name: 'addResponsabilitySenat',
+      component: () => import('./views/AddResponsabilitiesSenat.vue')
     }
     
   ]

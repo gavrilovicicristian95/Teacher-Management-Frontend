@@ -77,6 +77,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b)publicate la alte edituri :</h4>
@@ -103,6 +131,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>c)* pentru editiile revizuite si adaugite, se va acorda jumatate din punctaj</h4>
@@ -128,6 +184,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -174,6 +258,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
       </div>
       </div>
@@ -218,6 +330,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -264,6 +404,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
       </div>
       </div>
@@ -308,6 +476,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -357,6 +553,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h3>8. Coordonarea lucrarilor de licenta/disertatie/lucrari de grad</h3>
@@ -384,6 +608,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h4>b) 3 puncte/lucrare de disertatie sau de grad finalizata</h4>
@@ -409,6 +661,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -438,6 +718,13 @@
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersProiecteDidactice: [
           {
@@ -447,6 +734,13 @@
             value: 'denumire',
           },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersPunctaje: [
           {
@@ -456,6 +750,13 @@
             value: 'tipActivitate',
           },
           { text: 'Punctaj',value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersMaterialeSuport: [
           {
@@ -465,6 +766,13 @@
             value: 'denumire',
           },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersOrganizareAplicatii: [
           {
@@ -474,6 +782,13 @@
             value: 'denumire',
           },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersConducereDoctorat:[
           {
@@ -484,6 +799,13 @@
           { text: 'Doctorand', value: 'student' },
           { text: 'Titlu teza de doctorat finalizata si sustinuta public', value: 'titluTeza' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersCoordonareLicenta:[
           {
@@ -494,6 +816,13 @@
           { text: 'Student', value: 'student' },
           { text: 'Titlu lucrarii de licenta', value: 'titluTeza' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersCoordonareDisertatie:[
           {
@@ -504,6 +833,13 @@
           { text: 'Student', value: 'student' },
           { text: 'Titlu lucrarii de disertatie', value: 'titluTeza' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersFiseDeLucru:[
           {
@@ -516,6 +852,13 @@
           { text: 'Autori', value: 'autori' },
           { text: 'Nr.autori', value: 'nrAutori' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         punctajeEvaluareStudenti: [
           {tipActivitate : 'Punctaj 2014-2015' , punctaj: 10},
@@ -604,6 +947,13 @@
          sumField(key,data) {
         // sum data in give key (property)
         return data.reduce((a, b) => a + (b[key] || 0), 0)
+        },
+        editActivity(item){
+          console.log(item)
+        },
+        deletectivity(item){
+
+          console.log(item)
         }
 
       },

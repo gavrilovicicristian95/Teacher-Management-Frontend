@@ -47,6 +47,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h3>1.2 Activitati de promovare UAIC;Caravana UAIC;participare targuri,expozitii,evenimente institutionale. </h3>
@@ -100,6 +128,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <h3>1.3. responsabil evaluari ARACIS,UEFISCDI,CNECSDTI,CNATDCU</h3>
         <br>
@@ -124,6 +180,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
       </div>
@@ -175,6 +259,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <h6>membru comitet organizare</h6>
         <br>
@@ -199,6 +311,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
         <br>
@@ -228,6 +368,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <h6>membru comitet organizare</h6>
         <br>
@@ -253,6 +421,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
       </div>
     </div>
@@ -260,9 +456,7 @@
         <br>
         <h3>Responsabilitati</h3>
        
-          <v-btn filled class="primary " @click.once="addCourse()">
-            Adaugă responsabilitate
-          </v-btn>
+         
           <div>
           <br>
           <v-btn v-if="viewResponsabilities == false" filled class="accent" small @click.once="viewResponsabilities=true;">
@@ -278,6 +472,10 @@
           <br>
         <h4>3. Responsabilităţi în cadrul Universităţii, facultăţilor şi în cadrul departamentelor conexe activităţilor de cercetare</h4>
         <br>
+         <v-btn filled class="primary " @click.once="addResponsability('univ')">
+            Adaugă responsabilitate universitate
+          </v-btn>
+          <br>
         <v-data-table
           :headers="headersResponsabilitati"
           :items="responsabilitatiUniversitate"
@@ -300,9 +498,41 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
          <h4>4. Responsabilitati în Senatul Universitatii, in Consiliul facultăţii, departamentului</h4>
         <br>
+        <v-btn filled class="primary " @click.once="addResponsability('senat')">
+            Adaugă responsabilitate senat
+          </v-btn>
+          <br>
         <v-data-table
           :headers="headersResponsabilitati"
           :items="responsabilitatiSenat"
@@ -324,6 +554,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
         
@@ -375,6 +633,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <h4>6. Membru în comisii de concurs in vederea ocuparii unui post didactic ori de cercetare in invatamantul universitar</h4>
         <br>
@@ -399,6 +685,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
 
@@ -428,6 +742,34 @@
 
               </td>
             </tr>
+          </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
           </template>
         </v-data-table>
         <h4>b) tara </h4>
@@ -502,6 +844,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <h4>membru :</h4>
         <br>
@@ -527,6 +897,34 @@
               </td>
             </tr>
           </template>
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editActivity(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteActivity(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
 
         
@@ -540,6 +938,7 @@
 import MobilitiesProjectsService from '../services/mobilities.service'
    import InstitutionalActivityService from '../services/institutionalActivity.service'
    import CommissionsService from '../services/commissions.service'
+   import ResponsabilitiesService from '../services/responsabilites.service';
     export default {
     data () {
       return {
@@ -552,6 +951,13 @@ import MobilitiesProjectsService from '../services/mobilities.service'
           },
           { text: 'Activitati', value: 'activitati' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersOrganizari:[
           
@@ -560,6 +966,13 @@ import MobilitiesProjectsService from '../services/mobilities.service'
           value: 'activitati' },
            { text: 'Link la pagina web', value: 'linkPaginaWeb' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersResponsabilitati:[
           
@@ -568,6 +981,13 @@ import MobilitiesProjectsService from '../services/mobilities.service'
           value: 'responsabilityType' },
            { text: 'Nr ani', value: 'nrAni' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersComisii:[
           
@@ -575,6 +995,13 @@ import MobilitiesProjectsService from '../services/mobilities.service'
           align: 'start',
           value: 'comisii' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersProiecteMobilitatiCoord:[
           
@@ -583,6 +1010,13 @@ import MobilitiesProjectsService from '../services/mobilities.service'
           value: 'denumireProiect' },
            { text: 'Valoarea proiectului (Euro)', value: 'valoareProiectEuro' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         headersProiecteMobilitatiMembru:[
           
@@ -593,6 +1027,13 @@ import MobilitiesProjectsService from '../services/mobilities.service'
            { text: 'Valoarea proiectului (Euro)', value: 'valoareProiectEuro' },
            { text: 'Nr.membrilor echipei', value: 'nrMembriEchipa' },
           { text: 'Punctaj', value: 'punctaj' },
+          {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
+          
         ],
         proiecteMobilitatiCoord:[],
         proiectMobilitatiMembru:[],
@@ -638,7 +1079,29 @@ import MobilitiesProjectsService from '../services/mobilities.service'
         name: 'addProject',
       });
       },
+      editActivity(item){
+        console.log(item)
+      },
+      deleteActivity(item){
+        console.log(item)
+      },
+      addResponsability(tipResponsabilitate){
+        if(tipResponsabilitate == 'univ')
+          this.$router.push({
+          name: 'addResponsabilityUniv',
+        });
+      else
+        this.$router.push({
+          name: 'addResponsabilitySenat',
+        });
+      },
       refreshInstitutionalActivities(){
+        ResponsabilitiesService.getResponsabilities("responsabilitatiUniversitate",this.idUser).then(res => {
+            this.responsabilitatiUniversitate = res.data;
+         });
+         ResponsabilitiesService.getResponsabilities("responsabilitatiSenat",this.idUser).then(res => {
+            this.responsabilitatiSenat = res.data;
+         });
         InstitutionalActivityService.getInstitutionalActivities("contributiiOrganizareActivitati",this.idUser).then(res => {
             this.contributiiOrganizare = res.data;
          });

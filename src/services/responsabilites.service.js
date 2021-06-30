@@ -13,4 +13,4 @@ class ResponsabilitiesService{
     
 }
 
-export default new ScientificWorkService();
+export default new ResponsabilitiesService();

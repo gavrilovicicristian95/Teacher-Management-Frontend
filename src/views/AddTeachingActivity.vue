@@ -48,6 +48,12 @@ export default {
     methods:{
       saveActivity(){
           console.log("AM INTRAT IN SAVE ARTICLE");
+          if(this.tipActivitate == "proiecteDidactice")
+            this.punctaj = 40
+          else if(this.tipActivitate=="materialeSuport")
+            this.punctaj = 10
+          else
+            this.punctaj = 5
           var activityObject={
               idUser: this.idUser,
               denumire: this.denumire,

@@ -25,38 +25,66 @@
         
       <div v-if="viewResponsabilities == true" style="padding-left:2em;">
         <br>
-
+        <h3> Responsabilităţi în cadrul Universităţii, facultăţilor şi în cadrul departamentelor conexe activităţilor de cercetare
+ </h3>
         <v-data-table
           :headers="headersTipuriResponsabilitati"
-          :items="responsabilityTypes"
+          :items="responsabilityTypesUniv"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        </v-data-table>
+        <br>
+        <h3> Responsabilitati în Senatul Universitatii, in Consiliul facultăţii, departamentului
+</h3>
+        <v-data-table
+          :headers="headersTipuriResponsabilitati"
+          :items="responsabilityTypesSenat"
           :items-per-page="5"
           class="elevation-1"
         >
         </v-data-table>
         </div>
       </div>
-      <div v-if="addResponsabilityClick == true">
-             <form @submit="save">
+      <div >
+        <v-dialog v-model="addResponsabilityClick" max-width="800px" >
+          <v-card style="padding-left:2em; padding-right:2em;">
+            <v-card-title class="text-h5">Adauga o noua responsabilitate</v-card-title>
+             <form @submit="save" >
                 <div v-if="errors.length">
                     <div class="alert alert-warning" v-bind:key="index" v-for="(error, index) in errors">{{error}}</div>
                 </div>
-                
+                 <v-select
+                    v-model="respType"
+                    :items="respTypes"
+                    :label="respSelect"
+                    outlined
+                    class="my-2"
+                    ></v-select>
+               
                 <fieldset class="form-group" >
-                    <label>Tip responsabilitate</label>
-                    <input type="text" class="form-control" required v-model="responsabilityType">
+                    <label>Denumire responsabilitate</label>
+                    <input type="text" pattern=" [/w]*" class="form-control" required v-model="responsabilityType">
                 </fieldset>
                <fieldset class="form-group" >
                     <label>Nr.puncte anual</label>
-                    <input type="text" class="form-control" required v-model="nrPuncteAnual">
+                    <input type="number" class="form-control" required v-model="nrPuncteAnual">
                 </fieldset>
                
-               
-                <button class="btn btn-success" type="submit">Save</button>
+               <div style="display: flex;
+	flex-direction: column;
+	align-self: flex-start;">
+                <button class="btn btn-success" type="submit" >Save</button>
+                <v-btn filled  v-if="addResponsabilityClick == true" @click.once="toggle()"> Cancel
+                   </v-btn>
+                </div>
+           
+         
             </form>
             <br>
-          <v-btn filled class="primary " x-small v-if="addResponsabilityClick == true" @click.once="toggle()">
-            hide
-          </v-btn>
+          
+          </v-card>
+          </v-dialog>
           
       </div>
      <div>
@@ -110,28 +138,30 @@ export default {
           value: 'responsabilityType' },
            { text: 'Nr.puncte anual', value: 'nrPuncteAnual' },
       ],
+      respTypes: ['responsabilitatiUniversitate','responsabilitatiSenat'],
+        respType: 'none',
+        respSelect: 'Selecteaza tipul de responsabilitate',
       headersArticleFormulas: [
         {
         text: 'Formula', 
           align: 'start',
           value: 'formula' },
-           { text: 'tipArticol', value: 'tipArticol' },
-        { text: 'coeficientInmultireFactorImpact', value: 'coeficientInmultireFactorImpact' },
-        { text: 'coeficientInmultireSJR', value: 'coeficientInmultireSJR' },
-        { text: 'coeficientScadereNrAutori', value: 'coeficientScadereNrAutori' },
-        { text: 'maxSecondArgument', value: 'maxSecondArgument' },
-        { text: 'puncte', value: 'puncte' },
+           { text: 'tipActivitate', value: 'tipActivitate' },
         
       ],
       articleFormulas:[],
-      responsabilityTypes: [],
+      responsabilityTypesUniv: [],
+      responsabilityTypesSenat: [],
       addResponsabilityClick: false
     };
   },
   methods:{
     refreshThesisCoordinations(){
-          ResponsabilityTypeService.getAllResponsabilityTypes().then(res =>{
-          this.responsabilityTypes=res.data;
+          ResponsabilityTypeService.getAllResponsabilityTypes("responsabilitatiUniversitate").then(res =>{
+          this.responsabilityTypesUniv=res.data;
+          });
+          ResponsabilityTypeService.getAllResponsabilityTypes("responsabilitatiSenat").then(res =>{
+          this.responsabilityTypesSenat=res.data;
           });
          
         },
@@ -144,7 +174,7 @@ export default {
         save(){
           console.log("AM INTRAT IN SAVE ARTICLE");
           var responsabilityObject={
-             
+             tipResponsabilitate: this.respType,
               responsabilityType: this.responsabilityType,
               nrPuncteAnual: this.nrPuncteAnual
           }
