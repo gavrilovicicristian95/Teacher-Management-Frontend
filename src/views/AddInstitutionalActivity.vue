@@ -8,12 +8,15 @@
                 </div>
                 
                 
-                <h6 v-if="institutionalActivityType=='contributiiOrganizareActivitati'" style="color:grey;">Membru al Academiei Române </h6>
+                <h6 v-if="institutionalActivityType=='contributiiOrganizareActivitati'" style="color:grey;">Contribuţii la organizarea activităţii didactice şi administrative: orar, comisie de licenta/disertatie, comisie de admitere,coordonare programe de 
+studii,tutoriat, coordonare cercuri, conferinte studentesti, membru permanent/secretar comisii de licenta ori disertatie </h6>
           
-                <h6 v-if="institutionalActivityType=='activitatiPromovareUAICStrainatate'" style="color:grey;">Membru al Academiilor nationale din străinătate </h6>
+                <h6 v-if="institutionalActivityType=='activitatiPromovareUAICStrainatate'" style="color:grey;">Activitati de promovare UAIC;Caravana UAIC;participare targuri,expozitii,evenimente institutionale. 
+- in strainatate </h6>
               
-               <h6 v-if="institutionalActivityType=='activitatiPromovareUAICInTara'" style="color:grey;">Membru al Academiilor nationale din străinătate </h6>
-               <h6 v-if="institutionalActivityType=='responsabilEvaluari'" style="color:grey;">Membru al Academiilor nationale din străinătate </h6>
+               <h6 v-if="institutionalActivityType=='activitatiPromovareUAICInTara'" style="color:grey;">Activitati de promovare UAIC;Caravana UAIC;participare targuri,expozitii,evenimente institutionale. 
+ - in tara</h6>
+               <h6 v-if="institutionalActivityType=='responsabilEvaluari'" style="color:grey;">responsabil evaluari ARACIS,UEFISCDI,CNECSDTI,CNATDCU </h6>
               
                 <br>
 

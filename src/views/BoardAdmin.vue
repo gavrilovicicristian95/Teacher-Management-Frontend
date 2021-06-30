@@ -33,6 +33,34 @@
           :items-per-page="5"
           class="elevation-1"
         >
+         <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editResponsability(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteResponsability(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         <br>
         <h3> Responsabilitati în Senatul Universitatii, in Consiliul facultăţii, departamentului
@@ -43,6 +71,34 @@
           :items-per-page="5"
           class="elevation-1"
         >
+           <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="editResponsability(item)"
+                    >mdi-pencil</v-icon
+                  >
+                </template>
+                <span>Editeaza</span>
+            </v-tooltip>
+            <v-tooltip>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="deleteResponsability(item)"
+                    >mdi-delete
+                  </v-icon>
+                </template>
+                <span>Sterge</span>
+            </v-tooltip>
+          </template>
         </v-data-table>
         </div>
       </div>
@@ -64,7 +120,7 @@
                
                 <fieldset class="form-group" >
                     <label>Denumire responsabilitate</label>
-                    <input type="text" pattern=" [/w]*" class="form-control" required v-model="responsabilityType">
+                    <input type="text" class="form-control" required v-model="responsabilityType">
                 </fieldset>
                <fieldset class="form-group" >
                     <label>Nr.puncte anual</label>
@@ -137,6 +193,12 @@ export default {
           align: 'start',
           value: 'responsabilityType' },
            { text: 'Nr.puncte anual', value: 'nrPuncteAnual' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
       ],
       respTypes: ['responsabilitatiUniversitate','responsabilitatiSenat'],
         respType: 'none',
@@ -147,6 +209,12 @@ export default {
           align: 'start',
           value: 'formula' },
            { text: 'tipActivitate', value: 'tipActivitate' },
+           {
+          text: '',
+          align: 'center',
+          sortable: false,
+          value: 'actions',
+          }
         
       ],
       articleFormulas:[],
@@ -170,6 +238,13 @@ export default {
           this.articleFormulas=res.data;
           });
          
+        },
+        editResponsability(item){
+          console.log(item)
+        },
+        deleteResponsability(item){
+
+          console.log(item)
         },
         save(){
           console.log("AM INTRAT IN SAVE ARTICLE");
