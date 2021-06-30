@@ -31,6 +31,11 @@ class ArticleService{
             headers: authHeader()
         });
     }
+    deleteArticle(idArticol){
+        return axios.delete(`${API_URL}deleteArticle/${idArticol}`, {
+            headers: authHeader()
+        });
+    }
 }
 
 export default new ArticleService();

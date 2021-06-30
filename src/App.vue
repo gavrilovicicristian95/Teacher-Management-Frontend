@@ -14,20 +14,18 @@
         <li v-if="showModeratorBoard" class="nav-item">
           <router-link to="/mod" class="nav-link">Moderator Board</router-link>
         </li>
+  
+
         <li v-if="showUserBoard" class="nav-item">
-          <router-link v-if="currentUser" to="/user" class="nav-link">User</router-link>
+          <router-link v-if="currentUser" to="/researchActivity" class="nav-link">Research Activity</router-link>
         </li>
 
         <li v-if="showUserBoard" class="nav-item">
-          <router-link v-if="currentUser" to="/researchActivity" class="nav-link">ResearchActivity</router-link>
+          <router-link v-if="currentUser" to="/teachingActivity" class="nav-link">Teaching Activity</router-link>
         </li>
 
         <li v-if="showUserBoard" class="nav-item">
-          <router-link v-if="currentUser" to="/teachingActivity" class="nav-link">TeachingActivity</router-link>
-        </li>
-
-        <li v-if="showUserBoard" class="nav-item">
-          <router-link v-if="currentUser" to="/institutionalActivity" class="nav-link">institutionalActivity</router-link>
+          <router-link v-if="currentUser" to="/institutionalActivity" class="nav-link">Institutional Activity</router-link>
         </li>
         
       </div>
@@ -68,6 +66,7 @@
 
 <script>
 export default {
+  
   computed: {
     currentUser() {
       return this.$store.state.auth.user;

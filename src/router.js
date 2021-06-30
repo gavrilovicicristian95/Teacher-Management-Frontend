@@ -131,6 +131,52 @@ export const router = new Router({
       name: 'addScientificWork',
       component: () => import('./views/AddScientificWork.vue')
     },
+    {
+      path:'/addUniversityInvitation',
+      name: 'addUniversityInvitation',
+      component: () => import('./views/AddUniversityInvitation.vue')
+    },
+    {
+      path:'/addScientificCommitteeCoord',
+      name: 'addScientificCommitteeCoord',
+      component: () => import('./views/AddCommitteeMember.vue')
+    },
+    {
+      path:'/addPeerReviewer',
+      name: 'addPeerReviewer',
+      component: () => import('./views/AddPeerReviewer.vue')
+    },
+    {
+      path:'/addEditorActivity',
+      name: 'addEditorActivity',
+      component: () => import('./views/AddEditorActivity.vue')
+    },
+    {
+      path:'/addAcademyMember',
+      name: 'addAcademyMember',
+      component: () => import('./views/AddAcademyMember.vue')
+    },
+    {
+      path:'/addInstitutionalActivity',
+      name: 'addInstitutionalActivity',
+      component: () => import('./views/AddInstitutionalActivity.vue')
+    },
+    {
+      path:'/addOrganization',
+      name: 'addOrganization',
+      component: () => import('./views/AddInstitutionalOrganization.vue')
+    },
+    {
+      path:'/addCommission',
+      name: 'addCommission',
+      component: () => import('./views/AddCommissionMember.vue')
+    },
+    {
+      path:'/addProject',
+      name: 'addProject',
+      component: () => import('./views/AddMobilitiesProject.vue')
+    }
+    
   ]
 });
 

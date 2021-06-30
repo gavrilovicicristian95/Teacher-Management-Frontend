@@ -4,7 +4,7 @@
         <br>
         <h3>1.Activitati</h3>
        
-          <v-btn filled class="primary " @click.once="addCourse()">
+          <v-btn filled class="primary " @click.once="addInstitutionalActivity()">
             Adaugă activitate
           </v-btn>
           <div>
@@ -51,9 +51,10 @@
         <br>
         <h3>1.2 Activitati de promovare UAIC;Caravana UAIC;participare targuri,expozitii,evenimente institutionale. </h3>
         <br>
+        <h4>in tara</h4>
         <v-data-table
           :headers="headersActivitatiContributii"
-          :items="activitatiPromovare"
+          :items="activitatiPromovareInTara"
           :items-per-page="5"
           class="elevation-1"
         >
@@ -61,7 +62,7 @@
             <tr>
               <td v-for="(header,i) in headersActivitatiContributii" :key="i">
                   <div v-if="header.value == 'punctaj'">
-                      <th>{{sumField('punctaj',activitatiPromovare)}}</th>
+                      <th>{{sumField('punctaj',activitatiPromovareInTara)}}</th>
                   </div>
                   <div v-else-if=" i == 0">
                       <th>Total</th>
@@ -75,6 +76,31 @@
           </template>
         </v-data-table>
         <br>
+        <br>
+        <h4>in strainatate</h4>
+        <v-data-table
+          :headers="headersActivitatiContributii"
+          :items="activitatiPromovareInStrainatate"
+          :items-per-page="5"
+          class="elevation-1"
+        >
+        <template slot="body.append">
+            <tr>
+              <td v-for="(header,i) in headersActivitatiContributii" :key="i">
+                  <div v-if="header.value == 'punctaj'">
+                      <th>{{sumField('punctaj',activitatiPromovareInStrainatate)}}</th>
+                  </div>
+                  <div v-else-if=" i == 0">
+                      <th>Total</th>
+                  </div>
+                  <div v-else>
+                      <!-- empty table cells for columns that don't need a sum -->
+                  </div>
+
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
         <h3>1.3. responsabil evaluari ARACIS,UEFISCDI,CNECSDTI,CNATDCU</h3>
         <br>
         <v-data-table
@@ -107,7 +133,7 @@
         <br>
         <h3>2. Organizare manifestări ştiinţifice(conferinte,congrese) şi şcoli de vară, demonstrabile cu link la pagina web</h3>
        
-          <v-btn filled class="primary " @click.once="addCourse()">
+          <v-btn filled class="primary " @click.once="addOrganization()">
             Adaugă organizare
           </v-btn>
           <div>
@@ -308,7 +334,7 @@
         <br>
         <h3>Comisii</h3>
        
-          <v-btn filled class="primary " @click.once="addCourse()">
+          <v-btn filled class="primary " @click.once="addCommission()">
             Adaugă comisie
           </v-btn>
           <div>
@@ -436,7 +462,7 @@
         <br>
         <h3>8. Proiecte pentru mobilităţi şi tip grant </h3>
        
-          <v-btn filled class="primary " @click.once="addCourse()">
+          <v-btn filled class="primary " @click.once="addProject()">
             Adaugă proiect
           </v-btn>
           <div>
@@ -511,7 +537,9 @@
 
   
 <script>
-   
+import MobilitiesProjectsService from '../services/mobilities.service'
+   import InstitutionalActivityService from '../services/institutionalActivity.service'
+   import CommissionsService from '../services/commissions.service'
     export default {
     data () {
       return {
@@ -535,17 +563,17 @@
         ],
         headersResponsabilitati:[
           
-          { text: 'Comisii', 
-          align: 'start',
-          value: 'comisii' },
-          { text: 'Punctaj', value: 'punctaj' },
-        ],
-        headersComisii:[
-          
           { text: 'Responsabilitati', 
           align: 'start',
           value: 'responsabilityType' },
            { text: 'Nr ani', value: 'nrAni' },
+          { text: 'Punctaj', value: 'punctaj' },
+        ],
+        headersComisii:[
+          
+          { text: 'Comisii', 
+          align: 'start',
+          value: 'comisii' },
           { text: 'Punctaj', value: 'punctaj' },
         ],
         headersProiecteMobilitatiCoord:[
@@ -579,7 +607,8 @@
         organizariNationaleCoord : [],
         organizariNationaleMembru : [],
         contributiiOrganizare: [],
-        activitatiPromovare: [],
+        activitatiPromovareInTara: [],
+        activitatiPromovareInStrainatate: [],
         responsabilEvaluari: [],
         viewOrganizari : false,
         viewActivities: false,
@@ -589,6 +618,73 @@
         }
       },
       methods:{
+      addInstitutionalActivity(){
+        this.$router.push({
+        name: 'addInstitutionalActivity',
+      });
+      },
+      addOrganization(){
+        this.$router.push({
+        name: 'addOrganization',
+      });
+      },
+      addCommission(){
+        this.$router.push({
+        name: 'addCommission',
+      });
+      },
+      addProject(){
+        this.$router.push({
+        name: 'addProject',
+      });
+      },
+      refreshInstitutionalActivities(){
+        InstitutionalActivityService.getInstitutionalActivities("contributiiOrganizareActivitati",this.idUser).then(res => {
+            this.contributiiOrganizare = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("activitatiPromovareUAICStrainatate",this.idUser).then(res => {
+            this.activitatiPromovareInStrainatate = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("activitatiPromovareUAICInTara",this.idUser).then(res => {
+            this.activitatiPromovareInTara = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("responsabilEvaluari",this.idUser).then(res => {
+            this.responsabilEvaluari = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("organizariManiferstariNationaleCoord",this.idUser).then(res => {
+            this.organizariNationaleCoord = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("organizariManiferstariNationaleMembru",this.idUser).then(res => {
+            this.organizariNationaleMembru = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("organizariManiferstariInternationaleCoord",this.idUser).then(res => {
+            this.organizariInternationaleCoord = res.data;
+         });
+         InstitutionalActivityService.getInstitutionalActivities("organizariManiferstariInternationaleMembru",this.idUser).then(res => {
+            this.organizariInternationaleMembru = res.data;
+         });
+         CommissionsService.getSCommissionsByTipComisieAndUserId("membruComisiiUniversitateAvizateSenat",this.idUser).then(res => {
+            this.membruComisiiUniversitate= res.data;
+         });
+         CommissionsService.getSCommissionsByTipComisieAndUserId("membruComisiiConcursPostDidactic",this.idUser).then(res => {
+            this.membruComisiiConcurs = res.data;
+         });
+         CommissionsService.getSCommissionsByTipComisieAndUserId("membruComisiiDoctoratStrainatate",this.idUser).then(res => {
+            this.membruComisiiDoctoratStrainatate = res.data;
+         });
+         CommissionsService.getSCommissionsByTipComisieAndUserId("membruComisiiDoctoratTara",this.idUser).then(res => {
+            this.membruComisiiDoctoratTara = res.data;
+         });
+         MobilitiesProjectsService.getMobilities("coordonatorProiecteMobilitati",this.idUser).then(res => {
+            this.proiecteMobilitatiCoord = res.data;
+         });
+          MobilitiesProjectsService.getMobilities("membruProiecteMobilitati",this.idUser).then(res => {
+            this.proiectMobilitatiMembru = res.data;
+         });
+        
+        
+         
+      },
            sumField(key,data) {
         // sum data in give key (property)
         return data.reduce((a, b) => a + (b[key] || 0), 0)
@@ -596,12 +692,14 @@
        
 
       },
+      
       created() {
+        this.refreshInstitutionalActivities();
       
       
      },
       mounted(){
-      
+        this.refreshInstitutionalActivities();
       }
     }
 </script>

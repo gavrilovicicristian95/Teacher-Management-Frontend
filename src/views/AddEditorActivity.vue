@@ -65,7 +65,7 @@ export default {
       idUser: this.$store.state.auth.user.id,
       titlulEditurii:"",
         
-        editorActivityTypes: ['membruAcademiaRomana','membruAcademiiNationale'],
+        editorActivityTypes: ['editorArticoleWebOfScience','membruEchipaArticoleWebOfScience','editorRevisteIndexateBDI','membruEchipaRevisteIndexateBDI'],
         editorActivityType: null,
         editorActivitySelect: 'Selecteaza tipul membrului',
         punctaj: ""

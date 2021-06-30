@@ -77,7 +77,7 @@ export default {
              denumireUniversitate: this.denumireUniversitate,
              temaCercetare: this.temaCercetare,
               punctaj: this.punctaj,
-              tipLucrare: this.uniInvType
+              tipInvitatie: this.uniInvType
           }
 
           UniversityInvitationService.addUniversityInvitation(uniInvObject)

@@ -1,5 +1,7 @@
 <template>
+
   <v-app> 
+    
     <div>
       <h3>Articole</h3>
 
@@ -21,11 +23,23 @@
         <br>
         <h4>1. Articole ştiintifice publicate în extenso în reviste cotate Web of Science cu factor de impact</h4>
         <br>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-card>
+              <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         <v-data-table
           :headers="headersWebScience"
           :items="articlesWebScience"
           :items-per-page="5"
           class="elevation-1">
+          
           <template slot="body.append">
             <tr>
               <td v-for="(header,i) in headersWebScience" :key="i">
@@ -42,6 +56,21 @@
               </td>
             </tr>
           </template>
+          <!-- <template [`item.actions`]="{ item }">
+        <v-icon
+          small
+          class="mr-2"
+          @click="editArticle(item)"
+        >
+          mdi-pencil
+        </v-icon>
+        <v-icon
+          small
+          @click="deleteItem(item)"
+        >
+          mdi-delete
+        </v-icon>
+      </template> -->
         
           <template v-slot:[`item.actions`]="{ item }">
             <v-tooltip>
@@ -51,8 +80,8 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="viewArticle(item.idArticol)"
-                    >mdi-file-eye</v-icon
+                    @click="editArticle(item.idArticol)"
+                    >mdi-pencil</v-icon
                   >
                 </template>
                 <span>Vizualizeaza</span>
@@ -64,8 +93,8 @@
                     dark
                     v-bind="attrs"
                     v-on="on"
-                    @click="editArticle(item.idArticol)"
-                    >mdi-pencil
+                    @click="deleteItem(item.idArticol)"
+                    >mdi-delete
                   </v-icon>
                 </template>
                 <span>Editeaza</span>
@@ -1071,7 +1100,7 @@
     <div>
         <br>
         <h3>Lucrari stiintifice</h3>
-          <v-btn filled class="primary " @click.once="addConferenceParticipation()">
+          <v-btn filled class="primary " @click.once="addScientificWork()">
             Adaugă lucrare
           </v-btn>
           <div>
@@ -1177,7 +1206,7 @@
         <h3>14. Profesor/cercetator invitat la universităţi, centre si institute de cercetare(la initiativa probata a institutiei 
 gazda) cu identificarea temei de cercetare</h3>
        
-          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+          <v-btn filled class="primary " @click.once="addUnivInvitation()">
             Adauga invitatie
           </v-btn>
           <div>
@@ -1246,7 +1275,7 @@ gazda) cu identificarea temei de cercetare</h3>
         <br>
         <h3>15. Membru al Academiei Române, şi al academiilor nationale din străinătate</h3>
        
-          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+          <v-btn filled class="primary " @click.once="addAcademyMember()">
             Adauga 
           </v-btn>
           <div>
@@ -1315,7 +1344,7 @@ gazda) cu identificarea temei de cercetare</h3>
         <br>
         <h3>16. Editor, membru în echipa editoriala(se va puncta o singura data pentru fiecare perioada de 5 ani)</h3>
        
-          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+          <v-btn filled class="primary " @click.once="addEditorActivity()">
             Adauga 
           </v-btn>
           <div>
@@ -1438,7 +1467,7 @@ gazda) cu identificarea temei de cercetare</h3>
         <br>
         <h3>17. Coordonator,Membru in comitetul stiintific al conferintelor,congreselor, scolilor de vara</h3>
        
-          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+          <v-btn filled class="primary " @click.once="addScientificCommitteeCoord()">
             Adauga 
           </v-btn>
           <div>
@@ -1561,7 +1590,7 @@ gazda) cu identificarea temei de cercetare</h3>
         <br>
         <h3>18. Referent (peer-reviewer)-cu prezentarea unei dovezi</h3>
        
-          <v-btn filled class="primary " @click.once="addActivity('proiecteDidactice')">
+          <v-btn filled class="primary " @click.once="addPeerReviewer()">
             Adauga 
           </v-btn>
           <div>
@@ -1689,11 +1718,24 @@ gazda) cu identificarea temei de cercetare</h3>
   import PatentService from '../services/patent.service'
   import CitationService from '../services/citation.service'
   import ConferenceService from '../services/conference.service'
-
+  import ScientificWorkService from  '../services/scientificWork.service'
+  import PeerReviewerService from  '../services/peerReviewer.service'
+  import EditorActivityService from  '../services/editorActivity.service'
+  import UniversityInvitationsService from  '../services/universityInvitations.service'
+  import ScientificCommitteeService from  '../services/scientificCommitte.service'
+  import AcademyMemberService from  '../services/academyMember.service'
+  import JsonExcel from "vue-json-excel";
+  import Vue from "vue";
+  Vue.component("downloadExcel", JsonExcel);
+  
   export default {
     data () {
       return {
+
+        deleteIndex: -1,
         idUser: this.$store.state.auth.user.id,
+        dialog: false,
+        dialogDelete: false,
         headersScopus:[
           {
             text: 'Anul Publicarii',
@@ -2275,6 +2317,64 @@ gazda) cu identificarea temei de cercetare</h3>
           this.contractsFinNatMem = res.data;
         });
       },
+      refreshTables(){
+        ScientificWorkService.getScientificWorksByTipArticolAndUserId("lucrariRevisteWebOfScience",this.idUser).then(res => {
+          this.lucrariWebScience=res.data;
+        });
+        ScientificWorkService.getScientificWorksByTipArticolAndUserId("lucrariVolumeStrainatate",this.idUser).then(res => {
+          this.lucrariFaraFactImpact=res.data;
+        });
+        PeerReviewerService.getPeerReviewers("referentCartiSpecialitateInStrainatate",this.idUser).then(res => {
+          this.referentCartiStrainatate=res.data;
+        });
+        PeerReviewerService.getPeerReviewers("referentCartiSpecialitateInTara",this.idUser).then(res => {
+          this.referentCartiInTara=res.data;
+        });
+        PeerReviewerService.getPeerReviewers("referentRevisteSpecialitate",this.idUser).then(res => {
+          this.referentRevisteSpecialitate=res.data;
+        });
+        PeerReviewerService.getPeerReviewers("referentConferinteIndexateCORE",this.idUser).then(res => {
+          this.referentConferinteIndexate=res.data;
+        });
+        AcademyMemberService.getAcademymembersByTipMembruAndUserId("membruAcademiaRomana",this.idUser).then(res => {
+          this.membriAcademiaRomana=res.data;
+        });
+        AcademyMemberService.getAcademymembersByTipMembruAndUserId("membruAcademiiNationale",this.idUser).then(res => {
+          this.membriAcademiiNationale=res.data;
+        });
+        UniversityInvitationsService.getUniversityInvitations("profesorInvitatInStrainatate",this.idUser).then(res => {
+          this.universityInvitationsStrainatate=res.data;
+        });
+        UniversityInvitationsService.getUniversityInvitations("profesorInvitatInTara",this.idUser).then(res => {
+          this.universityInvitationsInTara=res.data;
+        });
+        ScientificCommitteeService.getScientificCommittees("coordonatorEvenimenteInternationale",this.idUser).then(res => {
+          this.coordonariEvenInternationale=res.data;
+        });
+        ScientificCommitteeService.getScientificCommittees("membruEvenimenteInternationale",this.idUser).then(res => {
+          this.membruEvenInternationale=res.data;
+        });
+        ScientificCommitteeService.getScientificCommittees("coordonatorEvenimenteNationale",this.idUser).then(res => {
+          this.coordonariEvenNationale=res.data;
+        });
+        ScientificCommitteeService.getScientificCommittees("membruEvenimenteNationale",this.idUser).then(res => {
+          this.membruEvenNationale=res.data;
+        });
+        EditorActivityService.getEditorActivityByTipActivitateAndUserId("editorArticoleWebOfScience",this.idUser).then(res => {
+          this.editorIndexateScopus=res.data;
+        });
+        EditorActivityService.getEditorActivityByTipActivitateAndUserId("membruEchipaArticoleWebOfScience",this.idUser).then(res => {
+          this.membruIndexateScopus=res.data;
+        });
+        EditorActivityService.getEditorActivityByTipActivitateAndUserId("editorRevisteIndexateBDI",this.idUser).then(res => {
+          this.editorIndexateBDI=res.data;
+        });
+        EditorActivityService.getEditorActivityByTipActivitateAndUserId("membruEchipaRevisteIndexateBDI",this.idUser).then(res => {
+          this.membruIndexateBDI=res.data;
+        });
+
+
+      },
       refreshArticles(){
         ArticleService.getArticlesByTipArticolAndUserId("webScience",this.idUser).then(res => {
         this.articlesWebScience = res.data;
@@ -2312,8 +2412,8 @@ gazda) cu identificarea temei de cercetare</h3>
         this.$router.push(`/editArticle/${idArticol}`);
       },
       editArticle(idArticol){
-        console.log(idArticol);
-        this.$router.push(`/editArticle/${idArticol}`)
+       
+        this.$router.push(`/editArticle/${idArticol}`);
       },
       viewBook(idBook){
         console.log(idBook);
@@ -2359,14 +2459,64 @@ gazda) cu identificarea temei de cercetare</h3>
         name: 'addConferenceParticipation',
       });
       },
+      addUnivInvitation(){
+         this.$router.push({
+        name: 'addUniversityInvitation',
+      });
+      },
+      addScientificCommitteeCoord(){
+         this.$router.push({
+        name: 'addScientificCommitteeCoord',
+      });
+      },
+      addPeerReviewer(){
+         this.$router.push({
+        name: 'addPeerReviewer',
+      });
+      },
+      addEditorActivity(){
+         this.$router.push({
+        name: 'addEditorActivity',
+      });
+      },
+      addAcademymember(){
+         this.$router.push({
+        name: 'addAcademyMember',
+      });
+      },
       sumField(key,data) {
         // sum data in give key (property)
         return data.reduce((a, b) => a + (b[key] || 0), 0)
-    }
+    },
+    deleteItem(id){
+   
+      this.deleteIndex=id
+      this.dialogDelete = true
+      
+    },
+   
+    deleteItemConfirm () {
+      ArticleService.deleteArticle(this.deleteIndex);
+      
+      this.closeDelete()
+    },
+
+    close () {
+      this.dialog = false
+      this.$nextTick(() => {this.refreshArticles();
+      })
+    },
+
+    closeDelete () {
+      this.dialogDelete = false
+      this.$nextTick(() => {this.refreshArticles();
+      })
+    },
     
     },
 
     created() {
+      this.refreshTables();
       this.refreshArticles();
       this.refreshBooks();
       this.refresContracts();
@@ -2374,7 +2524,16 @@ gazda) cu identificarea temei de cercetare</h3>
       this.refreshCitations();
       this.refreshParticipations();
     },
+    watch: {
+    dialog (val) {
+      val || this.close()
+    },
+    dialogDelete (val) {
+      val || this.closeDelete()
+    },
+  },
     mounted(){
+      this.refreshTables();
       this.refreshArticles();
       this.refreshBooks();
       this.refresContracts();
